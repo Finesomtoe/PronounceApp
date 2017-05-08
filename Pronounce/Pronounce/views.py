@@ -7,7 +7,7 @@ from flask import render_template
 from Pronounce import app
 
 @app.route('/')
-@app.route('/home')
+@app.route('/index')
 def home():
     """Renders the home page."""
     return render_template(

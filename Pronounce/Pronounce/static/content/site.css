@@ -1,6 +1,8 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: url(/static/maas.jpg) center center no-repeat fixed;
+    background-size: cover;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -40,3 +42,23 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.intro-text {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    /* Center form on page horizontally & vertically */
+    top: 30%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -150px;
+}
+
+    .intro-text h1 {
+        color: #ffffff;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        text-align: center;
+        text-emphasis: circle;
+        font-weight: bold;
+        font-size:x-large;
+    }
