@@ -28,6 +28,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Pronounce\forms.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pronounce\models.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="Pronounce\__init__.py" />
     <Compile Include="Pronounce\views.py" />
