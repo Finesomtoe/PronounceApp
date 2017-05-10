@@ -83,7 +83,7 @@ input[type="checkbox"].input-validation-error {
 
 .login_form {
     width: 500px;
-    height: 600px;
+    height: 650px;
     background-color: #ffffff;
     border-radius: 5px;
     margin: 0;
@@ -97,3 +97,62 @@ input[type="checkbox"].input-validation-error {
     border: 1px solid;
     text-align:center;
 }
+
+/* Signup form */
+form input#name,
+form input#dialectregion,
+form input#email,
+form input#originregion,
+form input#phonenr,
+form input#age {
+    width: 100%;
+    padding: 12px 30px;
+    margin: 8px 0;
+    margin-bottom: 20px;
+    display: inline-block;
+    border: 1px solid #33aa33;
+    box-sizing: border-box;
+}
+
+form input#gender {
+    display: inline;
+    float: left;
+}
+
+
+form input#submit {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.flash {
+    background-color: #FBB0B0;
+    padding: 4px;
+    width: 300px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+}
+
+
+.flash-warning {
+    color: #000000;
+    border-color: #ffffff;
+}
+
+    .flash-warning .flash-link {
+        color: #a47e3c;
+    }
+
+    .flash-warning hr {
+        border-top-color: #f8e5be;
+    }
+
+    .flash-warning .alert-link {
+        color: #a47e3c;
+    }        

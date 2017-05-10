@@ -10,35 +10,51 @@
     <script src="/static/scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
+    {% for message in form.email.errors %}
+    <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+    {% endfor %}
+    {% for message in form.name.errors %}
+    <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+    {% endfor %}
+    {% for message in form.dialectregion.errors %}
+    <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+    {% endfor %}
+    {% for message in form.originregion.errors %}
+    <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+    {% endfor %}
     <div class="login_div text-center">
-        <form class="login_form" action="#">
+        <form class="login_form" action="{{ url_for('home') }}" method="post">
             <br />
             <h1 class="text-center">Enter details</h1>
             <br />
-            <div class="form-group">
-                <label for="usr">Naam:</label>
-                <input type="text" class="form-control myForm" id="usr">
-            </div>
-            <div class="form-group">
-                <label for="pwd">Email:</label>
-                <input type="email" class="form-control myForm" id="pwd">
-            </div>
-            <div class="form-group">
-                <label for="pwd">Mobile nummer:</label>
-                <input type="text" class="form-control myForm" id="pwd">
-            </div>
-            <div class="form-group">
-                <label for="pwd">Leeftijd:</label>
-                <input type="number" class="form-control myForm" id="pwd">
-            </div>
-            <div class="form-group">
-                <label for="pwd">Spreekt het dialect van…(straat/buurt/stad):</label>
-                <input type="text" class="form-control myForm" id="pwd">
-            </div>
-            <div class="form-group">
-                <label for="pwd">was geboren in:</label>
-                <input type="text" class="form-control myForm" id="pwd">
-            </div>
+            {{ form.hidden_tag() }}
+
+            {{ form.email }}
+            <br />
+
+            {{ form.name }}
+            <br />
+           
+
+            {{ form.phonenr }}          
+            <br />
+
+            {{ form.age }}         
+            <br />
+
+            {{ form.dialectregion }}           
+            <br />
+
+            {{ form.originregion }}
+            <br />          
+
+            <label class="radio-inline">
+                {{ form.gender }}                             
+            </label>
+            <br />
+           
+            {{ form.submit }}
+            
         </form>
     </div>
 </body>
