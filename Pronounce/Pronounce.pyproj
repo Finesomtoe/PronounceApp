@@ -47,6 +47,8 @@
     <Folder Include="Pronounce\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pronounce\static\scripts\pager.js" />
+    <Content Include="Pronounce\templates\sentences.html" />
     <Content Include="requirements.txt" />
     <Content Include="Pronounce\static\content\bootstrap.css" />
     <Content Include="Pronounce\static\content\bootstrap.min.css" />

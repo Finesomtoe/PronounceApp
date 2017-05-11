@@ -21,7 +21,7 @@ def home():
             newvolunteer = Volunteer(form.email.data, form.name.data, form.phonenr.data, form.age.data, form.gender.data, form.dialectregion.data, form.originregion.data)
             db.session.add(newvolunteer)
             db.session.commit()
-            return redirect(url_for('contact'))
+            return redirect(url_for('sentences'))
     elif request.method == 'GET':
         return render_template('index.html', title='Home', form=form)
 
@@ -41,6 +41,16 @@ def about():
     """Renders the about page."""
     return render_template(
         'about.html',
+        title='About',
+        year=datetime.now().year,
+        message='Your application description page.'
+    )
+
+@app.route('/sentences')
+def sentences():
+    """Renders the sentence page."""
+    return render_template(
+        'sentences.html',
         title='About',
         year=datetime.now().year,
         message='Your application description page.'
