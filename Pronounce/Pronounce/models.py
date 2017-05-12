@@ -25,6 +25,25 @@ class Volunteer(db.Model):
         self.gender = gender
      
     def __repr__(self):
-        return '<User %r>' % self.name
+        return '<User %r>' % self.fullname
 
+class Sentence(db.Model):
+    """description of class"""
+    __tablename__ = 'sentences_test'
+    sentenceid = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.String(120))
+    sentencedutch = db.Column(db.String(200), unique=True)
+    sentenceenglish = db.Column(db.String(200), unique=True)
+    sentencemaas = db.Column(db.String(200), unique=True)
+    nrofrecordings = db.Column(db.Integer)
+    
 
+    def __init__(self, category, sentencedutch, sentenceenglish, sentencemaas, nroforecordings):      
+        self.category = category.lower()
+        self.sentencedutch = sentencedutch.title()  
+        self.sentenceenglish = sentenceenglish.title()
+        self.sentencemaas = sentencemaas.title()
+        self.nrofrecordings = nroforecordings      
+
+    def __repr__(self):
+        return '<User %r>' % self.sentencedutch

@@ -6,7 +6,7 @@ from datetime import datetime
 from flask import render_template, request, redirect, url_for
 from Pronounce import app, db
 from .forms import VolunteersForm
-from .models import Volunteer
+from .models import Volunteer, Sentence
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -46,9 +46,13 @@ def about():
         message='Your application description page.'
     )
 
-@app.route('/sentences')
-def sentences():
+@app.route('/sentences/<id>')
+def sentences(id):
     """Renders the sentence page."""
+    sentence = Sentence.query.get(int(id))
+
+    if sentence is None:
+
     return render_template(
         'sentences.html',
         title='About',

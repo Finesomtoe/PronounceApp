@@ -1,47 +1,42 @@
-$( document ).ready(function() { 
-    
+$('#pagination-demo').twbsPagination({
+totalPages: 5,
+// the current page that show on start
+startPage: 1,
 
-    pageSize = 2;
-    pagesCount = $(".content").length;
-    var currentPage = 1;
-    
-    /////////// PREPARE NAV ///////////////
-    var nav = '';
-    var totalPages = Math.ceil(pagesCount / pageSize);
-    for (var s=0; s<totalPages; s++){
-        nav += '<li class="numeros"><a href="#">'+(s+1)+'</a></li>';
-    }
-    $(".pag_prev").after(nav);
-    $(".numeros").first().addClass("active");
-    //////////////////////////////////////
+// maximum visible pages
+visiblePages: 5,
 
-    showPage = function() {
-        $(".content").hide().each(function(n) {
-            if (n >= pageSize * (currentPage - 1) && n < pageSize * currentPage)
-                $(this).show();
-        });
-    }
-    showPage();
+initiateStartPageClick: true,
 
+// template for pagination links
+href: false,
 
-    $(".pagination li.numeros").click(function() {
-        $(".pagination li").removeClass("active");
-        $(this).addClass("active");
-        currentPage = parseInt($(this).text());
-        showPage();
-    });
+// variable name in href template for page number
+hrefVariable: '{{number}}',
 
-    $(".pagination li.pag_prev").click(function() {
-        if($(this).next().is('.active')) return;
-        $('.numeros.active').removeClass('active').prev().addClass('active');
-        currentPage = currentPage > 1 ? (currentPage-1) : 1;
-        showPage();
-    });
+// Text labels
+first: 'First',
+prev: 'Previous',
+next: 'Next',
+last: 'Last',
 
-    $(".pagination li.pag_next").click(function() {
-        if($(this).prev().is('.active')) return;
-        $('.numeros.active').removeClass('active').next().addClass('active');
-        currentPage = currentPage < totalPages ? (currentPage+1) : totalPages;
-        showPage();
-    });
+// carousel-style pagination
+loop: false,
+
+// callback function
+onPageClick: function (event, page) {
+	$('.page-active').removeClass('page-active');
+  $('#page'+page).addClass('page-active');
+},
+
+// pagination Classes
+paginationClass: 'pagination',
+nextClass: 'next',
+prevClass: 'prev',
+lastClass: 'last',
+firstClass: 'first',
+pageClass: 'page',
+activeClass: 'active',
+disabledClass: 'disabled'
+
 });
