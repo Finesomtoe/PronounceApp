@@ -1,52 +1,36 @@
 ﻿<!DOCTYPE html>
 
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
-    <script src="/static/scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
+    {% block content %}
     <div class="container">
-        <div class="jumbotron" id="page1">
-            <div class="container">
-                <h1 class="display-3">Adding Pagination to your Website</h1>
-                <p class="lead">In this article we teach you how to add pagination, an excellent way to navigate large amounts of content, to your website using a jQuery Bootstrap Plugin.</p>
-                <p><a class="btn btn-lg btn-success" href="https://www.solodev.com/blog/web-design/adding-pagination-to-your-website.stml" role="button">Learn More</a></p>
-            </div>
+        <div class="midsection">
+            <span class="glyphicon glyphicon-record" style="color:indianred"></span>
+                <h2>{{sentence.sentencedutch}}</h2>
+                <h3>{{sentence.sentenceenglish}}</h3>
+                <div class="bottom-left">
+                    <p>Category: {{sentence.category}}</p>
+                </div>
         </div>
-        <div class="jumbotron page" id="page2">
-            <h1 class="display-3">Not Another Jumbotron</h1>
-            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
-        </div>
-        <div class="jumbotron page" id="page3">
-            <h1 class="display-3">Data. Data. Data.</h1>
-            <p>This example is a quick exercise to illustrate how the default responsive navbar works. It's placed within a <code>.container</code> to limit its width and will scroll with the rest of the page's content.</p>
-            <p>
-                <a class="btn btn-lg btn-primary" href="../../components/navbar" role="button">View navbar docs »</a>
-            </p>
-        </div>
-        <div class="jumbotron page" id="page4">
-            <h1 style="-webkit-user-select: auto;">Buy Now!</h1>
-            <p class="lead" style="-webkit-user-select: auto;">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
-            <p style="-webkit-user-select: auto;"><a class="btn btn-lg btn-success" href="#" role="button" style="-webkit-user-select: auto;">Get started today</a></p>
-        </div>
-        <div class="jumbotron page" id="page5">
-            <h1 class="cover-heading">Cover your page.</h1>
-            <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-            <p class="lead">
-                <a href="#" class="btn btn-lg btn-primary">Learn more</a>
-            </p>
-        </div>
-        <ul id="pagination-demo" class="pagination-lg pull-right"></ul>
     </div>
-    
-    
+    <ul class="pager">
+        <li><a href="{{url_for('sentences', id=sentence.sentenceid-1)}}">Previous</a></li>
+        <li><a href="{{url_for('sentences', id=sentence.sentenceid+1)}}">Next</a></li>
+    </ul>
+
+    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script src="/static/scripts/bootstrap.js"></script>
+    <script src="/static/scripts/respond.js"></script>
     {% block scripts %}{% endblock %}
 
+    {% endblock %}
 </body>
 </html>

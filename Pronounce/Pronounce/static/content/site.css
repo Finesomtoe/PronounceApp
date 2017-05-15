@@ -169,3 +169,37 @@ form input#submit {
 .page-active {
     display: block;
 }
+
+.bottom-left {
+    position:absolute;
+    bottom: 0;
+    left: 2px;
+    color: #0094ff;
+    font-size: small;
+    font-family: 'Segoe UI';
+}
+
+.midsection {
+    position:relative;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    min-height: 500px;
+    font-size: 21px;
+    font-weight: 200;
+    margin-bottom: 30px;
+    line-height: 2.1428571435;
+    color: inherit;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+
+    .midsection h2 {
+        line-height: 3;
+        font-family:'Times New Roman', Times, serif;
+    }
+
+
+.container .midsection {
+    border-radius: 6px;
+}

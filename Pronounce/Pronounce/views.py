@@ -21,7 +21,7 @@ def home():
             newvolunteer = Volunteer(form.email.data, form.name.data, form.phonenr.data, form.age.data, form.gender.data, form.dialectregion.data, form.originregion.data)
             db.session.add(newvolunteer)
             db.session.commit()
-            return redirect(url_for('sentences'))
+            return redirect(url_for('sentences', id = 1))
     elif request.method == 'GET':
         return render_template('index.html', title='Home', form=form)
 
@@ -52,10 +52,6 @@ def sentences(id):
     sentence = Sentence.query.get(int(id))
 
     if sentence is None:
-
-    return render_template(
-        'sentences.html',
-        title='About',
-        year=datetime.now().year,
-        message='Your application description page.'
-    )
+        return redirect(url_for('contact'))
+    else:
+        return render_template('sentences.html', sentence=sentence)
