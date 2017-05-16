@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
     <title></title>
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
@@ -15,6 +16,18 @@
             <span class="glyphicon glyphicon-record" style="color:indianred"></span>
                 <h2>{{sentence.sentencedutch}}</h2>
                 <h3>{{sentence.sentenceenglish}}</h3>
+            <div id="container">
+
+                <audio id="gum" autoplay muted></audio>
+                <audio id="recorded" autoplay loop></audio>
+
+                <div>
+                    <button id="record">Start Recording</button>
+                    <button id="play" disabled>Play</button>
+                    <button id="download" disabled>Download</button>
+                </div>
+
+            </div>
                 <div class="bottom-left">
                     <p>Category: {{sentence.category}}</p>
                 </div>
@@ -25,48 +38,10 @@
         <li><a href="{{url_for('sentences', id=sentence.sentenceid+1)}}">Next</a></li>
     </ul>
 
-    <audio controls autoplay></audio>
-    <script type="text/javascript" src="/static/scripts/recorder.js"> </script>
 
-    <input onclick="startRecording()" type="button" value="start recording" />
-    <input onclick="stopRecording()" type="button" value="stop recording and play" />
-
-    <script>
-      var onFail = function(e) {
-        console.log('Rejected!', e);
-      };
-
-      var onSuccess = function(s) {
-        var context = new webkitAudioContext();
-        var mediaStreamSource = context.createMediaStreamSource(s);
-        recorder = new Recorder(mediaStreamSource);
-        recorder.record();
-
-        // audio loopback
-        // mediaStreamSource.connect(context.destination);
-      }
-
-      window.URL = window.URL || window.webkitURL;
-      navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
-      var recorder;
-      var audio = document.querySelector('audio');
-
-      function startRecording() {
-        if (navigator.getUserMedia) {
-          navigator.getUserMedia({audio: true}, onSuccess, onFail);
-        } else {
-          console.log('navigator.getUserMedia not present');
-        }
-      }
-
-      function stopRecording() {
-        recorder.stop();
-        recorder.exportWAV(function(s) {
-          audio.src = window.URL.createObjectURL(s);
-        });
-      }
-    </script>
+    <!-- include adapter for srcObject shim -->
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="/static/scripts/main.js"></script>
 
     <script src="/static/scripts/modernizr-2.6.2.js"></script>
     <script src="/static/scripts/jquery-1.10.2.js"></script>
