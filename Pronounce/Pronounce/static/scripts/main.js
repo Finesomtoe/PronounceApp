@@ -25,9 +25,11 @@ var recordedVideo = document.querySelector('audio#recorded');
 var recordButton = document.querySelector('button#record');
 var playButton = document.querySelector('button#play');
 var downloadButton = document.querySelector('button#download');
+var submitButton = document.querySelector('button#myField');
 recordButton.onclick = toggleRecording;
 playButton.onclick = play;
 downloadButton.onclick = download;
+submitButton.onclick = getBlob;
 
 // window.isSecureContext could be used for Chrome
 var isSecureOrigin = location.protocol === 'https:' ||
@@ -96,13 +98,13 @@ function toggleRecording() {
 
 function startRecording() {
     recordedBlobs = [];
-    var options = { mimeType: 'audio/x-mpeg-3' };
+    var options = { mimeType: 'audio/ogg' };
     if (!MediaRecorder.isTypeSupported(options.mimeType)) {
         console.log(options.mimeType + ' is not Supported');
-        options = { mimeType: 'audio/x-mpeg-3' };
+        options = { mimeType: 'audio/ogg' };
         if (!MediaRecorder.isTypeSupported(options.mimeType)) {
             console.log(options.mimeType + ' is not Supported');
-            options = { mimeType: 'audio/x-mpeg-3' };
+            options = { mimeType: 'audio/ogg' };
             if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                 console.log(options.mimeType + ' is not Supported');
                 options = { mimeType: '' };
@@ -134,17 +136,18 @@ function stopRecording() {
 }
 
 function play() {
-    var superBuffer = new Blob(recordedBlobs, { type: 'audio/x-mpeg-3' });
+    var superBuffer = new Blob(recordedBlobs, { type: 'audio/ogg' });
     recordedVideo.src = window.URL.createObjectURL(superBuffer);
 }
 
 function download() {
-    var blob = new Blob(recordedBlobs, { type: 'audio/x-mpeg-3' });
+    var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
+    console.log(blob);
     var url = window.URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.style.display = 'none';
     a.href = url;
-    a.download = 'test.mp3';
+    a.download = 'test.ogg';
     document.body.appendChild(a);
     a.click();
     setTimeout(function () {
@@ -154,8 +157,10 @@ function download() {
 }
 
 function getBlob() {
-    var blob = new Blob(recordedBlobs, { type: 'audio/x-mpeg-3' });
+    var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
+    //var blobs = window.URL.createObjectURL(blob)
+    console.log(blob);
     return blob
 }
 
-document.getElementById('myField').value = getBlob();
+//document.getElementById('myField').value = getBlob();

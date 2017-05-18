@@ -51,7 +51,7 @@ def about():
 def sentences(id):
     """Renders the sentence page."""
     sentence = Sentence.query.get(int(id))
-    volunteer = Volunteer.query.filter_by(email = session['email']).first()
+    #volunteer = Volunteer.query.filter_by(email = session['email']).first()
       
     if sentence is None:
         return redirect(url_for('contact'))
@@ -64,7 +64,7 @@ def assemblies():
     
     if request.method == 'POST':
         myColours = request.form['blob']
-        recording = Recording("recording", myColours, 1, volunteer.id)
+        recording = Recording("recording", bytes(myColours, 'utf8'), 1, volunteer.id)
         db.session.add(recording)
         db.session.commit()
         return render_template('contact.html', myColours=myColours)
