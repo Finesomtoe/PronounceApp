@@ -19,7 +19,7 @@
             <div id="container">
 
                 <audio id="gum" autoplay muted></audio>
-                <audio id="recorded" autoplay loop></audio>
+                <audio id="recorded" autoplay></audio>
 
                 <div>
                     <button id="record">Start Recording</button>
@@ -28,6 +28,10 @@
                 </div>
 
             </div>
+            <form action="{{ url_for('assemblies') }}" method="post">
+                <button name="blob" id="myField" value="">Submit</button>
+            </form> 
+            <p id="paragraph"></p>
                 <div class="bottom-left">
                     <p>Category: {{sentence.category}}</p>
                 </div>

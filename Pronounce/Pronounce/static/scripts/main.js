@@ -144,7 +144,7 @@ function download() {
     var a = document.createElement('a');
     a.style.display = 'none';
     a.href = url;
-    a.download = 'test.webm';
+    a.download = 'test.mp3';
     document.body.appendChild(a);
     a.click();
     setTimeout(function () {
@@ -152,3 +152,10 @@ function download() {
         window.URL.revokeObjectURL(url);
     }, 100);
 }
+
+function getBlob() {
+    var blob = new Blob(recordedBlobs, { type: 'audio/x-mpeg-3' });
+    return blob
+}
+
+document.getElementById('myField').value = getBlob();

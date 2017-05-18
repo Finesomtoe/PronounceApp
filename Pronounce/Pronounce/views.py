@@ -3,10 +3,10 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 from Pronounce import app, db
 from .forms import VolunteersForm
-from .models import Volunteer, Sentence
+from .models import Volunteer, Sentence, Recording
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -21,6 +21,7 @@ def home():
             newvolunteer = Volunteer(form.email.data, form.name.data, form.phonenr.data, form.age.data, form.gender.data, form.dialectregion.data, form.originregion.data)
             db.session.add(newvolunteer)
             db.session.commit()
+            session['email'] = newvolunteer.email
             return redirect(url_for('sentences', id = 1))
     elif request.method == 'GET':
         return render_template('index.html', title='Home', form=form)
@@ -50,8 +51,22 @@ def about():
 def sentences(id):
     """Renders the sentence page."""
     sentence = Sentence.query.get(int(id))
-
+    volunteer = Volunteer.query.filter_by(email = session['email']).first()
+      
     if sentence is None:
         return redirect(url_for('contact'))
     else:
         return render_template('sentences.html', sentence=sentence)
+
+@app.route('/assemblies', methods=['GET', 'POST'])
+def assemblies():
+    volunteer = Volunteer.query.filter_by(email = session['email']).first()
+    
+    if request.method == 'POST':
+        myColours = request.form['blob']
+        recording = Recording("recording", myColours, 1, volunteer.id)
+        db.session.add(recording)
+        db.session.commit()
+        return render_template('contact.html', myColours=myColours)
+
+    
