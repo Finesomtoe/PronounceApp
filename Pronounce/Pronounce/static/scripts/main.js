@@ -29,7 +29,7 @@ var submitButton = document.querySelector('button#myField');
 recordButton.onclick = toggleRecording;
 playButton.onclick = play;
 downloadButton.onclick = download;
-submitButton.onclick = getBlob;
+submitButton.onclick = upload;
 
 // window.isSecureContext could be used for Chrome
 var isSecureOrigin = location.protocol === 'https:' ||
@@ -154,6 +154,18 @@ function download() {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
     }, 100);
+}
+
+function upload() {
+    var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
+    var fd = new FormData();
+    fd.append('fname', 'test.ogg');
+    fd.append('data', blob, "test.ogg");
+    console.log(fd)
+    var request = new XMLHttpRequest();
+    request.open("POST", "/assemblies");
+    request.send(fd)
+
 }
 
 function getBlob() {

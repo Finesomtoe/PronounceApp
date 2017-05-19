@@ -1,12 +1,14 @@
 """
 Routes and views for the flask application.
 """
-
+import os
 from datetime import datetime
 from flask import render_template, request, redirect, url_for, session
 from Pronounce import app, db
 from .forms import VolunteersForm
 from .models import Volunteer, Sentence, Recording
+from werkzeug.utils import secure_filename
+
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -60,13 +62,15 @@ def sentences(id):
 
 @app.route('/assemblies', methods=['GET', 'POST'])
 def assemblies():
-    volunteer = Volunteer.query.filter_by(email = session['email']).first()
-    
+    #volunteer = Volunteer.query.filter_by(email = session['email']).first()   
     if request.method == 'POST':
-        myColours = request.form['blob']
-        recording = Recording("recording", bytes(myColours, 'utf8'), 1, volunteer.id)
-        db.session.add(recording)
-        db.session.commit()
-        return render_template('contact.html', myColours=myColours)
+        file = request.files['data']
+
+        if file:
+            filename = secure_filename(file.filename)
+            print (filename)
+            file.save(filename)
+            print (app.config['UPLOAD_FOLDER'])
+            return render_template('contact.html')
 
     
