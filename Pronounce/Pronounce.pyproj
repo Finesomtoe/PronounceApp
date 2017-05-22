@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pronounce\" />
-    <Folder Include="Pronounce\uploads\" />
     <Folder Include="Pronounce\static\" />
     <Folder Include="Pronounce\static\content\" />
     <Folder Include="Pronounce\static\fonts\" />

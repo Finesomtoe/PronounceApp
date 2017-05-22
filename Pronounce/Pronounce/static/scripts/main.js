@@ -31,6 +31,7 @@ playButton.onclick = play;
 downloadButton.onclick = download;
 submitButton.onclick = upload;
 
+
 // window.isSecureContext could be used for Chrome
 var isSecureOrigin = location.protocol === 'https:' ||
     location.hostname === 'localhost';

@@ -22,7 +22,6 @@ app.config["MAIL_PASSWORD"] = ''
 app.config['DIALECT_APP_SUBJECT'] = '[Dialect App]'
 app.config['DIALECT_APP_SENDER'] = 'senendu5@yahoo.com'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:sokoamshe619+@localhost/testdb'
-app.config['UPLOAD_FOLDER'] = '/uploads'
 db = SQLAlchemy(app)
 mail = Mail(app)
 
