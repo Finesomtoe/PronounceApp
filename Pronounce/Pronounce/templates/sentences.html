@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base target="_blank">
     <title></title>
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
@@ -13,6 +12,8 @@
     {% block content %}
     <div class="container">
         <div class="midsection">
+            <h4 id="starttext" style="color:dodgerblue; display:none">Recording now started...</h4>
+            <h4 id="stoptext" style="color:dodgerblue; display:none">Recording Stopped</h4>
             <span class="glyphicon glyphicon-record" style="color:indianred"></span>
                 <h2>{{sentence.sentencedutch}}</h2>
                 <h3>{{sentence.sentenceenglish}}</h3>
@@ -22,15 +23,14 @@
                 <audio id="recorded" autoplay></audio>
 
                 <div>
-                    <button id="record">Start Recording</button>
-                    <button id="play" disabled>Play</button>
-                    <button id="download" disabled>Download</button>
+                    <button id="record" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue">Record <span class="glyphicon glyphicon-record" style="color:indianred"></span></button>
+                    <button id="play" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Play <span class="glyphicon glyphicon-play" style="color:dodgerblue"></span></button>
+                    <button id="download" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Download <span class="glyphicon glyphicon-download-alt" style="color:cadetblue"></span></button>
+                    <button id="myField" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Submit <span class="glyphicon glyphicon-send" style="color:green"></span></button>
                 </div>
 
             </div>
-            <form>
-                <button name="blob" id="myField" value="">Submit</button>
-            </form> 
+            
             <p id="paragraph"></p>
                 <div class="bottom-left">
                     <p>Category: {{sentence.category}}</p>

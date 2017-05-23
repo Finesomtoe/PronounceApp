@@ -87,13 +87,18 @@ function handleStop(event) {
 }
 
 function toggleRecording() {
-    if (recordButton.textContent === 'Start Recording') {
+    if (recordButton.textContent === 'Record ') {
+        $("#starttext").show();
+        $("#stoptext").hide();
         startRecording();
     } else {
+        $("#stoptext").show();
+        $("#starttext").hide();
         stopRecording();
-        recordButton.textContent = 'Start Recording';
+        recordButton.textContent = 'Record ';
         playButton.disabled = false;
         downloadButton.disabled = false;
+        submitButton.disabled = false;
     }
 }
 
@@ -124,6 +129,7 @@ function startRecording() {
     recordButton.textContent = 'Stop Recording';
     playButton.disabled = true;
     downloadButton.disabled = true;
+    submitButton.disabled = true;
     mediaRecorder.onstop = handleStop;
     mediaRecorder.ondataavailable = handleDataAvailable;
     mediaRecorder.start(10); // collect 10ms of data
