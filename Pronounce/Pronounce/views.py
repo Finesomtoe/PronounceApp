@@ -8,9 +8,13 @@ from Pronounce import app, db
 from .forms import VolunteersForm
 from .models import Volunteer, Sentence, Recording
 from werkzeug.utils import secure_filename
-
+from random import randint, sample
 
 sid = 0
+global rndNumber 
+global length
+rndNumber = sample(range(1,16), 15)
+length = len(rndNumber) - 1
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -26,7 +30,7 @@ def home():
             db.session.add(newvolunteer)
             db.session.commit()
             session['email'] = newvolunteer.email
-            return redirect(url_for('sentences', id = 1))
+            return redirect(url_for('sentences', id = rndNumber[0], rand = 0))
     elif request.method == 'GET':
         return render_template('index.html', title='Home', form=form)
 
@@ -51,17 +55,18 @@ def about():
         message='Your application description page.'
     )
 
-@app.route('/sentences/<id>')
-def sentences(id):
+@app.route('/sentences/<id>/<int:rand>')
+def sentences(id, rand):
     """Renders the sentence page."""
     sentence = Sentence.query.get(int(id))
+    rnd = rand
 
     if sentence is None:
         return redirect(url_for('contact'))
     else:
         global sid
         sid = id
-        return render_template('sentences.html', sentence=sentence)
+        return render_template('sentences.html', sentence=sentence, rndNumber=rndNumber, rnd=rnd, length=length)
 
     
 

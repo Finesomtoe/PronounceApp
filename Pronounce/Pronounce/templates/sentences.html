@@ -38,8 +38,16 @@
         </div>
     </div>
     <ul class="pager">
-        <li><a href="{{url_for('sentences', id=sentence.sentenceid-1)}}">Previous</a></li>
-        <li><a href="{{url_for('sentences', id=sentence.sentenceid+1)}}">Next</a></li>
+        {% if rnd > 0 %}
+        <li><a href="{{url_for('sentences', id=rndNumber[rnd-1], rand=rnd-1)}}">Previous</a></li>
+        {% else %}
+        <li class="disabled"><a href="#">Previous</a></li>
+        {% endif %}
+        {% if rnd < length %}
+        <li><a href="{{url_for('sentences', id=rndNumber[rnd+1], rand=rnd+1)}}">Next</a></li>
+        {% else %}
+        <li><a href="{{url_for('contact')}}">Finish</a></li>
+        {% endif %}
     </ul>
 
 
