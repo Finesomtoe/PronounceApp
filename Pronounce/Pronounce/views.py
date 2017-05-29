@@ -90,7 +90,7 @@ def assemblies():
             if not os.path.exists(path):
                 os.makedirs(path)
             app.config["UPLOAD_FOLDER"] = path
-            if os.path.isfile(filename):
+            if os.path.isfile(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
                 basename = volunteer.fullname + "_" + os.path.splitext(filename)[0]+ "_" + str(sentence.sentenceid)
                 ext = os.path.splitext(filename)[1]
                 filename = basename + ext
