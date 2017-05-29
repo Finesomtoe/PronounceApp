@@ -47,10 +47,13 @@
 
             {{ form.originregion }}
             <br />          
+          
+            {% for subfield in form.gender %}
 
-            <label class="radio-inline">
-                {{ form.gender }}                             
-            </label>
+            {{ subfield (class_="radio-inline") }}
+            {{ subfield.label }}
+          
+            {% endfor %}
             <br />
            
             {{ form.submit }}

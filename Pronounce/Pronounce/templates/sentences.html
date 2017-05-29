@@ -15,8 +15,10 @@
             <h4 id="starttext" style="color:dodgerblue; display:none">Recording now started...</h4>
             <h4 id="stoptext" style="color:dodgerblue; display:none">Recording Stopped</h4>
             <span class="glyphicon glyphicon-record" style="color:indianred"></span>
-                <h2>{{sentence.sentencedutch}}</h2>
-                <h3>{{sentence.sentenceenglish}}</h3>
+            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Dutch</h5>
+                <h2><a href="#" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentencedutch}}</a></h2>
+            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Mestreech</h5>
+                <h3>{{sentence.sentencemaas}}</h3>
             <div id="container">
 
                 <audio id="gum" autoplay muted></audio>

@@ -1,9 +1,14 @@
 
-from Pronounce import app, mysql, db
+from Pronounce import app, mysql, db, login_manager
+from flask.ext.login import UserMixin
 from datetime import datetime 
 from flask import request
 
-class Volunteer(db.Model):
+@login_manager.user_loader
+def load_user(user_id):
+    return Volunteer.query.get(int(user_id))
+
+class Volunteer(UserMixin, db.Model):
     """description of class"""
     __tablename__ = 'volunteer_test'
     id = db.Column(db.Integer, primary_key=True)
@@ -26,7 +31,7 @@ class Volunteer(db.Model):
         self.gender = gender
      
     def __repr__(self):
-        return '<User %r>' % self.fullname
+        return '<Volunteer %r>' % self.fullname
 
 class Sentence(db.Model):
     """description of class"""

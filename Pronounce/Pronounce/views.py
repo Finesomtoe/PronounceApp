@@ -7,6 +7,7 @@ from flask import render_template, request, redirect, url_for, session, send_fro
 from Pronounce import app, db
 from .forms import VolunteersForm
 from .models import Volunteer, Sentence, Recording
+from flask.ext.login import login_user, logout_user, login_required
 from werkzeug.utils import secure_filename
 from random import randint, sample
 
@@ -30,6 +31,7 @@ def home():
             db.session.add(newvolunteer)
             db.session.commit()
             session['email'] = newvolunteer.email
+            login_user(newvolunteer)
             return redirect(url_for('sentences', id = rndNumber[0], rand = 0))
     elif request.method == 'GET':
         return render_template('index.html', title='Home', form=form)
@@ -56,6 +58,7 @@ def about():
     )
 
 @app.route('/sentences/<id>/<int:rand>')
+@login_required
 def sentences(id, rand):
     """Renders the sentence page."""
     sentence = Sentence.query.get(int(id))
@@ -81,8 +84,8 @@ def assemblies():
         if file:
             filename = secure_filename(file.filename)
             print (filename)
-            #path = os.path.dirname(os.path.abspath(__file__)) + "/uploads/"
-            path = "Pronounce/uploads/"
+            path = os.path.dirname(os.path.abspath(__file__)) + "/uploads/"
+            #path = "Pronounce/uploads/"
             print(path)
             if not os.path.exists(path):
                 os.makedirs(path)
