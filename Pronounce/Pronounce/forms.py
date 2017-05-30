@@ -6,8 +6,8 @@ from wtforms import StringField, IntegerField, RadioField, TextField, TextAreaFi
 class VolunteersForm(Form):
   name = TextField("Naam",  [validators.Required("Please enter your full name."), validators.Regexp('[A-Za-z]', 0, 'Usernames must have only letters')], render_kw={"placeholder": "Voor-en Achternaam"})
   email = TextField("Email",  [validators.Required("Please enter your email address."), validators.Email("Please enter your email address.")], render_kw={"placeholder": "Email Address"})
-  phonenr = IntegerField("Mobile nummer(Optional)", [validators.Optional(strip_whitespace=True)], render_kw={"placeholder": "Mobile nummer"})
-  age = IntegerField("Leeftijd(Optional)", [validators.Optional(strip_whitespace=True)], render_kw={"placeholder": "Leeftijd"})
+  phonenr = IntegerField("Mobile nummer", [validators.Optional(strip_whitespace=True)], render_kw={"placeholder": "Mobile nummer(Optional)"})
+  age = IntegerField("Leeftijd", [validators.Optional(strip_whitespace=True)], render_kw={"placeholder": "Leeftijd(Optional)"})
   dialectregion = TextField("Spreekt het dialect van? (straat/buurt/stad)",  [validators.Required("Please enter the dialect you speak.")], render_kw={"placeholder": "Spreekt het dialect van? (straat/buurt/stad)"})
   originregion = TextField("Is geboren in..",  [validators.Required("Please enter your region of origin.")], render_kw={"placeholder": "Is geboren in.."})
   gender = RadioField("Gender", choices=[('man', 'Man'), ('vrouw', 'Vrouw')])

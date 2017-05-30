@@ -14,6 +14,7 @@
         <div class="midsection">
             <h4 id="starttext" style="color:dodgerblue; display:none">Recording now started...</h4>
             <h4 id="stoptext" style="color:dodgerblue; display:none">Recording Stopped</h4>
+            <h4 id="submittext" style="color:dodgerblue; display:none">Thank you, your audio recording has now been submitted.</h4>
             <span class="glyphicon glyphicon-record" style="color:indianred"></span>
             <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Dutch</h5>
                 <h2><a href="#" style="color:black" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentencedutch}}</a></h2>
@@ -28,7 +29,7 @@
                     <button id="record" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue">Record <span class="glyphicon glyphicon-record" style="color:indianred"></span></button>
                     <button id="play" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Play <span class="glyphicon glyphicon-play" style="color:dodgerblue"></span></button>
                     <button id="download" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Download <span class="glyphicon glyphicon-download-alt" style="color:cadetblue"></span></button>
-                    <button id="myField" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Submit <span class="glyphicon glyphicon-send" style="color:green"></span></button>
+                    <button id="submit" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Submit <span class="glyphicon glyphicon-send" style="color:green"></span></button>
                 </div>
 
             </div>
@@ -41,12 +42,12 @@
     </div>
     <ul class="pager">
         {% if rnd > 0 %}
-        <li><a href="{{url_for('sentences', id=rndNumber[rnd-1], rand=rnd-1)}}">Previous</a></li>
+        <li><a href="{{url_for('sentences', rand=rnd-1)}}">Previous</a></li>
         {% else %}
         <li class="disabled"><a href="#">Previous</a></li>
         {% endif %}
         {% if rnd < length %}
-        <li><a href="{{url_for('sentences', id=rndNumber[rnd+1], rand=rnd+1)}}">Next</a></li>
+        <li><a href="{{url_for('sentences', rand=rnd+1)}}">Next</a></li>
         {% else %}
         <li><a href="{{url_for('contact')}}">Finish</a></li>
         {% endif %}

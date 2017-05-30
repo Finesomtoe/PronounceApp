@@ -32,7 +32,7 @@ def home():
             db.session.commit()
             session['email'] = newvolunteer.email
             login_user(newvolunteer)
-            return redirect(url_for('sentences', id = rndNumber[0], rand = 0))
+            return redirect(url_for('sentences', rand = 0))
     elif request.method == 'GET':
         return render_template('index.html', title='Home', form=form)
 
@@ -57,19 +57,19 @@ def about():
         message='Your application description page.'
     )
 
-@app.route('/sentences/<id>/<int:rand>')
+@app.route('/sentences/<int:rand>')
 @login_required
-def sentences(id, rand):
+def sentences(rand):
     """Renders the sentence page."""
-    sentence = Sentence.query.get(int(id))
+    sentence = Sentence.query.get(int(rndNumber[rand]))
     rnd = rand
 
     if sentence is None:
         return redirect(url_for('contact'))
     else:
         global sid
-        sid = id
-        return render_template('sentences.html', sentence=sentence, rndNumber=rndNumber, rnd=rnd, length=length)
+        sid = rndNumber[rand]
+        return render_template('sentences.html', sentence=sentence, rnd=rnd, length=length)
 
     
 

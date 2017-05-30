@@ -25,7 +25,7 @@ var recordedVideo = document.querySelector('audio#recorded');
 var recordButton = document.querySelector('button#record');
 var playButton = document.querySelector('button#play');
 var downloadButton = document.querySelector('button#download');
-var submitButton = document.querySelector('button#myField');
+var submitButton = document.querySelector('button#submit');
 recordButton.onclick = toggleRecording;
 playButton.onclick = play;
 downloadButton.onclick = download;
@@ -88,8 +88,7 @@ function handleStop(event) {
 
 function toggleRecording() {
     if (recordButton.textContent === 'Record ') {
-        $("#starttext").show();
-        $("#stoptext").hide();
+        
         startRecording();
     } else {
         $("#stoptext").show();
@@ -119,6 +118,9 @@ function startRecording() {
     }
     try {
         mediaRecorder = new MediaRecorder(window.stream, options);
+        $("#starttext").show();
+        $("#stoptext").hide();
+        $("#submittext").hide();
     } catch (e) {
         console.error('Exception while creating MediaRecorder: ' + e);
         alert('Exception while creating MediaRecorder: '
@@ -172,6 +174,7 @@ function upload() {
     var request = new XMLHttpRequest();
     request.open("POST", "/assemblies");
     request.send(fd)
+    $("#submittext").show();
 
 }
 
