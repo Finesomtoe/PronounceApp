@@ -14,7 +14,7 @@ from random import randint, sample
 sid = 0
 global rndNumber 
 global length
-rndNumber = sample(range(1,16), 15)
+rndNumber = sample(range(1,31), 15)
 length = len(rndNumber) - 1
 
 @app.route('/', methods=['GET', 'POST'])
