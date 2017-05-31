@@ -103,13 +103,13 @@ function toggleRecording() {
 
 function startRecording() {
     recordedBlobs = [];
-    var options = { mimeType: 'audio/ogg' };
+    var options = { mimeType: 'audio/wav' };
     if (!MediaRecorder.isTypeSupported(options.mimeType)) {
         console.log(options.mimeType + ' is not Supported');
-        options = { mimeType: 'audio/ogg' };
+        options = { mimeType: 'audio/wav' };
         if (!MediaRecorder.isTypeSupported(options.mimeType)) {
             console.log(options.mimeType + ' is not Supported');
-            options = { mimeType: 'audio/ogg' };
+            options = { mimeType: 'audio/wav' };
             if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                 console.log(options.mimeType + ' is not Supported');
                 options = { mimeType: '' };
@@ -145,12 +145,12 @@ function stopRecording() {
 }
 
 function play() {
-    var superBuffer = new Blob(recordedBlobs, { type: 'audio/ogg' });
+    var superBuffer = new Blob(recordedBlobs, { type: 'audio/wav' });
     recordedVideo.src = window.URL.createObjectURL(superBuffer);
 }
 
 function download() {
-    var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
+    var blob = new Blob(recordedBlobs, { type: 'audio/wav' });
     console.log(blob);
     var url = window.URL.createObjectURL(blob);
     var a = document.createElement('a');
@@ -166,10 +166,10 @@ function download() {
 }
 
 function upload() {
-    var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
+    var blob = new Blob(recordedBlobs, { type: 'audio/wav' });
     var fd = new FormData();
-    fd.append('fname', 'test.ogg');
-    fd.append('data', blob, "test.ogg");
+    fd.append('fname', 'test.wav');
+    fd.append('data', blob, "test.wav");
     console.log(fd)
     var request = new XMLHttpRequest();
     request.open("POST", "/assemblies");
