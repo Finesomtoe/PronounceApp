@@ -26,7 +26,7 @@ app.config["MAIL_PASSWORD"] = ''
 app.config['DIALECT_APP_SUBJECT'] = '[Dialect App]'
 app.config['DIALECT_APP_SENDER'] = 'senendu5@yahoo.com'
 login_manager.init_app(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:sokoamshe619+@localhost/testdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://limdialect_admin:OeOCMPSMn8NT7@mysql-limdialect.science.ru.nl/limdialect'#'mysql+pymysql://root:sokoamshe619+@localhost/testdb'
 db = SQLAlchemy(app)
 mail = Mail(app)
 

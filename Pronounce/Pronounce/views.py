@@ -3,7 +3,7 @@ Routes and views for the flask application.
 """
 import os
 from datetime import datetime
-from flask import render_template, request, redirect, url_for, session, send_from_directory
+from flask import render_template, request, redirect, url_for, session, send_from_directory, flash
 from Pronounce import app, db
 from .forms import VolunteersForm
 from .models import Volunteer, Sentence, Recording
@@ -90,15 +90,22 @@ def assemblies():
             if not os.path.exists(path):
                 os.makedirs(path)
             app.config["UPLOAD_FOLDER"] = path
-            if os.path.isfile(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
-                basename = volunteer.fullname + "_" + os.path.splitext(filename)[0]+ "_" + str(sentence.sentenceid)
-                ext = os.path.splitext(filename)[1]
-                filename = basename + ext
+            basename = volunteer.fullname + "_" + os.path.splitext(filename)[0]+ "_" + str(sentence.sentenceid)
+            ext = os.path.splitext(filename)[1]
+            filename = basename + ext
+            #if os.path.isfile(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
+                #basename = volunteer.fullname + "_" + os.path.splitext(filename)[0]+ "_" + str(sentence.sentenceid)
+                #ext = os.path.splitext(filename)[1]
+                #filename = basename + ext
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             recording = Recording(volunteer.fullname + "_" + str(sentence.sentenceid), filepath, sentence.sentenceid, volunteer.id)
-            db.session.add(recording)
-            db.session.commit()
+            existing_record = Recording.query.filter_by(recordingname = recording.recordingname).first()
+            if existing_record is None:
+                db.session.add(recording)
+                db.session.commit()
+            else:
+                print("Your previous recording will be overwritten")
             print (app.config['UPLOAD_FOLDER'])
             return "Upload successful"
  
