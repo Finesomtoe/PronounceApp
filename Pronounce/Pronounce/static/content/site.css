@@ -268,3 +268,73 @@ video {
     font-size: 22px;
     border-radius: 8px;
 }
+
+.intro {
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 100px 0;
+    text-align: center;
+    color: white;
+    background-color: black;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+  
+
+h1
+{
+    margin: 0 0 35px;
+    text-transform: uppercase;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+
+/* Style buttons */
+.buttonload {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px /* Set a font size */
+}
+
+
+.loader {
+    margin-left: auto;
+    margin-right: auto;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid blue;
+    border-right: 16px solid green;
+    border-bottom: 16px solid red;
+    width: 50px;
+    height: 50px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

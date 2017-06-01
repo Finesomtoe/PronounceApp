@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} - My Flask Application</title>
+    <link rel="icon" href="/static/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
     <script src="/static/scripts/modernizr-2.6.2.js"></script>
@@ -60,8 +61,11 @@
             <br />
            
             {{ form.submit }}
-            
+            <br />
+            <br />
+            <p style="color:gray">By submitting this form you agree to our terms of service</p>
         </form>
+        
     </div>
     {% endblock %}
 </body>

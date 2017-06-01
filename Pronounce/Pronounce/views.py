@@ -32,7 +32,8 @@ def home():
             db.session.commit()
             session['email'] = newvolunteer.email
             login_user(newvolunteer)
-            return redirect(url_for('sentences', rand = 0))
+            return render_template('splash.html')
+            #return redirect(url_for('sentences', rand = 0))
     elif request.method == 'GET':
         return render_template('index.html', title='Home', form=form)
 

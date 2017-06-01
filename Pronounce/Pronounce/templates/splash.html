@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+            $('#splash').ready()
+            {
+                $('#main').load('sentences.html');
+                setTimeout(function() {
+                    $('#main').ready(function() {
+                        $('#splash').remove();
+                        window.location.href = "/sentences/0";
+                    });
+                }, 10000);
+            }            
+    </script>
+    <script type="text/javascript">
+            var seconds_left = 10;
+            var interval = setInterval(function () {
+                document.getElementById('timerdiv').innerHTML = --seconds_left;
+
+            }, 1000);
+    </script>
+</head>
+<body>
+    <div id="splash">
+        <!--Put splash here-->
+        <header class="intro">
+            <h1>Instructie</h1>
+            <p>             
+                Gebruik de 'record' knop om te beginnen met het opnemen van de uitspraak van de zin.<br />
+                Wanneer u klaar bent, klik op 'stop opnemen' om de opname te stoppen.<br />
+                Om te luisteren naar wat is opgenomen, klik op de afspeelknop.<br />
+                Klik op de downloadknop om het opgenomen geluidsbestand te downloaden<br />
+                Als u door wilt gaan en de opname wilt indienen, klikt u op de submit knop.
+            </p>
+            <br />
+            <div class="loader"></div> 
+                            
+            <div id="timerdiv"></div>
+        </header>
+    </div>
+    <div id="main">
+        <!-- keep empty -->
+    </div>
+
+    <!-- include adapter for srcObject shim -->
+    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script src="/static/scripts/bootstrap.js"></script>
+    <script src="/static/scripts/respond.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
