@@ -47,10 +47,12 @@
     <Folder Include="Pronounce\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pronounce\static\scripts\interval.js" />
     <Content Include="Pronounce\static\scripts\main.js" />
     <Content Include="Pronounce\static\scripts\pager.js" />
     <Content Include="Pronounce\static\scripts\recorder.js" />
     <Content Include="Pronounce\static\scripts\recorderWorker.js" />
+    <Content Include="Pronounce\static\scripts\timeout.js" />
     <Content Include="Pronounce\templates\hi.html" />
     <Content Include="Pronounce\templates\sentences.html" />
     <Content Include="Pronounce\templates\splash.html" />
