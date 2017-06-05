@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 from flask import render_template, request, redirect, url_for, session, send_from_directory, flash
 from Pronounce import app, db
-from .forms import VolunteersForm
+from .forms import VolunteersForm, LoginForm
 from .models import Volunteer, Sentence, Recording
 from flask.ext.login import login_user, logout_user, login_required
 from werkzeug.utils import secure_filename
@@ -110,10 +110,35 @@ def assemblies():
             print (app.config['UPLOAD_FOLDER'])
             return "Upload successful"
  
+
 @app.route('/boxart')
 def uploaded_boxart():
     return send_from_directory(app.config['UPLOAD_FOLDER'], "ogochukwu enendu_test_1.ogg")
-    
+ 
 
+@app.route('/log_in', methods=['GET', 'POST'])
+def login():
+
+    if 'email' in session:
+        return redirect(url_for('sentences', rand=0)) 
+
+    if request.method == 'POST':
+            volunteer = Volunteer.query.filter_by(email=request.form.get("emailname")).first()
+            #session['email'] = form.email.data
+            if volunteer is None:
+                flash("Dat is een ongeldige e-mail. Probeer het opnieuw")
+                return redirect(url_for('home'))               
+            else:
+                login_user(volunteer)
+                return redirect(url_for('sentences', rand=0))          
+                        
+    elif request.method == 'GET':
+      return render_template('index.html')
+
+@app.route('/logout')
+@login_required
+def signout():
+    logout_user()
+    return redirect(url_for('home'))
 
     
