@@ -373,3 +373,50 @@ h1
     padding: 14px 20px;
     background-color: #f44336;
 }
+
+/* space between the bar and your content */
+#barwrap {
+    margin-bottom: 30px;
+}
+
+.bar {
+    text-align: center;
+    padding: 8px;
+    padding-top: 0px;
+    background-color: firebrick;
+    /* set it at will according to your message's length in small devices */
+    max-height: 70px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    color: white;
+    border-bottom: thick ridge rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0px 2px 13px 0.5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 13px 0.5px rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 3008;
+}
+
+#head-image {
+    margin-right: 1%;
+    position: relative;
+    top: 8px;
+}
+
+#text {
+    position: relative;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#ok {
+    float: right;
+    margin-top: 6px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+    #ok a {
+        color: white;
+        text-decoration: none;
+    }

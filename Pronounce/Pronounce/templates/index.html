@@ -7,15 +7,24 @@
     <title>{{ title }} - My Flask Application</title>
     <link rel="icon" href="/static/favicon.ico">
     <script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="/static/scripts/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
     <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <script src="/static/scripts/pager.js"></script>
 </head>
+
 <body>
     {% import "bootstrap/wtf.html" as wtf %}
     {% block content %}
-
+    <div id="barwrap">
+        <div class="bar">
+            <span id="text">Deze site werkt het best met Firefox of Chrome.</span>
+            <span id="otherimg"></span>
+            <span id="ok"><a href="#">Dismiss</a></span>
+        </div>
+    </div>
     <div class="login_div text-center">
         {% for message in form.email.errors %}
         <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>

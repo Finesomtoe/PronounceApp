@@ -6,5 +6,5 @@ $('#splash').ready()
             $('#splash').remove();
             window.location.href = "/sentences/0";
         });
-    }, 10000);
+    }, 20000);
 }       

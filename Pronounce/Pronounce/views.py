@@ -7,7 +7,7 @@ from flask import render_template, request, redirect, url_for, session, send_fro
 from Pronounce import app, db
 from .forms import VolunteersForm, LoginForm
 from .models import Volunteer, Sentence, Recording
-from flask.ext.login import login_user, logout_user, login_required
+from flask.ext.login import login_user, logout_user, login_required, current_user
 from werkzeug.utils import secure_filename
 from random import randint, sample
 
@@ -79,7 +79,7 @@ def assemblies():
     #volunteer = Volunteer.query.filter_by(email = session['email']).first()   
     if request.method == 'POST':
         file = request.files['data']
-        volunteer = Volunteer.query.filter_by(email = session['email']).first()
+        volunteer = Volunteer.query.filter_by(email = current_user.email).first()
         sentence = Sentence.query.get(int(sid))
 
         if file:
@@ -106,7 +106,7 @@ def assemblies():
                 db.session.add(recording)
                 db.session.commit()
             else:
-                print("Your previous recording will be overwritten")
+                flash("Your previous recording will be overwritten")
             print (app.config['UPLOAD_FOLDER'])
             return "Upload successful"
  
@@ -139,6 +139,6 @@ def login():
 @login_required
 def signout():
     logout_user()
-    return redirect(url_for('home'))
+    return render_template('logout.html')
 
     

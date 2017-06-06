@@ -1,42 +1,18 @@
-$('#pagination-demo').twbsPagination({
-totalPages: 5,
-// the current page that show on start
-startPage: 1,
+function preventBack() { window.history.forward(); }
+setTimeout("preventBack()", 0);
+window.onunload = function () { null };
 
-// maximum visible pages
-visiblePages: 5,
-
-initiateStartPageClick: true,
-
-// template for pagination links
-href: false,
-
-// variable name in href template for page number
-hrefVariable: '{{number}}',
-
-// Text labels
-first: 'First',
-prev: 'Previous',
-next: 'Next',
-last: 'Last',
-
-// carousel-style pagination
-loop: false,
-
-// callback function
-onPageClick: function (event, page) {
-	$('.page-active').removeClass('page-active');
-  $('#page'+page).addClass('page-active');
-},
-
-// pagination Classes
-paginationClass: 'pagination',
-nextClass: 'next',
-prevClass: 'prev',
-lastClass: 'last',
-firstClass: 'first',
-pageClass: 'page',
-activeClass: 'active',
-disabledClass: 'disabled'
-
+$(function () {
+    setTimeout(function () {
+        return $(".bar").animate({
+            height: "toggle"
+        }, "slow")
+    }, 450);
+    return $("#ok").on("click", function () {
+        $("#barwrap").css("margin-bottom", "0px");
+        $(".bar").animate({
+            height: "toggle"
+        }, "slow");
+        return !1
+    })
 });

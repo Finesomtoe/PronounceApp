@@ -87,14 +87,14 @@ function handleStop(event) {
 }
 
 function toggleRecording() {
-    if (recordButton.textContent === 'Record ') {
+    if (recordButton.textContent === 'Opnemen ') {
         
         startRecording();
     } else {
         $("#stoptext").show();
         $("#starttext").hide();
         stopRecording();
-        recordButton.textContent = 'Record ';
+        recordButton.textContent = 'Opnemen ';
         playButton.disabled = false;
         downloadButton.disabled = false;
         submitButton.disabled = false;
@@ -103,13 +103,13 @@ function toggleRecording() {
 
 function startRecording() {
     recordedBlobs = [];
-    var options = { mimeType: 'audio/ogg' };
+    var options = { mimeType: 'audio/mp3' };
     if (!MediaRecorder.isTypeSupported(options.mimeType)) {
         console.log(options.mimeType + ' is not Supported');
         options = { mimeType: 'audio/ogg' };
         if (!MediaRecorder.isTypeSupported(options.mimeType)) {
             console.log(options.mimeType + ' is not Supported');
-            options = { mimeType: 'audio/ogg' };
+            options = { mimeType: 'audio/webm' };
             if (!MediaRecorder.isTypeSupported(options.mimeType)) {
                 console.log(options.mimeType + ' is not Supported');
                 options = { mimeType: '' };
@@ -123,12 +123,12 @@ function startRecording() {
         $("#submittext").hide();
     } catch (e) {
         console.error('Exception while creating MediaRecorder: ' + e);
-        alert('Exception while creating MediaRecorder: '
-            + e + '. mimeType: ' + options.mimeType);
+        alert('Oops! There was a problem: Please ensure you allowed access to your microphone'
+            );
         return;
     }
     console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
-    recordButton.textContent = 'Stop Recording';
+    recordButton.textContent = 'Stop met opnemen';
     playButton.disabled = true;
     downloadButton.disabled = true;
     submitButton.disabled = true;
@@ -145,18 +145,18 @@ function stopRecording() {
 }
 
 function play() {
-    var superBuffer = new Blob(recordedBlobs, { type: 'audio/ogg' });
+    var superBuffer = new Blob(recordedBlobs, { type: 'audio/webm' });
     recordedVideo.src = window.URL.createObjectURL(superBuffer);
 }
 
 function download() {
-    var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
+    var blob = new Blob(recordedBlobs, { type: 'audio/webm' });
     console.log(blob);
     var url = window.URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.style.display = 'none';
     a.href = url;
-    a.download = 'test.ogg';
+    a.download = 'test.webm';
     document.body.appendChild(a);
     a.click();
     setTimeout(function () {
@@ -166,10 +166,10 @@ function download() {
 }
 
 function upload() {
-    var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
+    var blob = new Blob(recordedBlobs, { type: 'audio/acc' });
     var fd = new FormData();
-    fd.append('fname', 'test.mp3');
-    fd.append('data', blob, "test.ogg");
+    fd.append('fname', 'test.acc');
+    fd.append('data', blob, "test.acc");
     console.log(fd)
     var request = new XMLHttpRequest();
     request.open("POST", "/assemblies");

@@ -11,13 +11,15 @@
     <script src="/static/scripts/jquery-1.10.2.js"></script>
     <script src="/static/scripts/bootstrap.js"></script>
     <script src="/static/scripts/respond.js"></script>
+    <script>
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+    </script>
 </head>
 <body>
-    <h1>Hi!!</h1>
-    <audio controls>
-        <source src="../uploads/test.ogg" type="audio/ogg">
-        Your browser does not support the audio element.
-    </audio> 
-    <img src="../static/download.jpg" />
+    <h1 class="text-center" style="color:white">Dank je wel voor deelname aan dit onderzoek!!</h1><br />
+
 </body>
 </html>
