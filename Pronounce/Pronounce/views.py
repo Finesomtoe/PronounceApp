@@ -14,6 +14,7 @@ from random import randint, sample
 sid = 0
 global rndNumber 
 global length
+global file_number
 rndNumber = sample(range(1,31), 15)
 length = len(rndNumber) - 1
 
@@ -27,7 +28,7 @@ def home():
         if form.validate() == False:
             return render_template('index.html', form=form)
         else:
-            newvolunteer = Volunteer(form.email.data, form.name.data, form.phonenr.data, form.age.data, form.gender.data, form.dialectregion.data, form.originregion.data)
+            newvolunteer = Volunteer(form.email.data, form.password.data, form.name.data, form.phonenr.data, form.age.data, form.dialectregion.data, form.originregion.data, form.gender.data)
             db.session.add(newvolunteer)
             db.session.commit()
             session['email'] = newvolunteer.email
@@ -91,7 +92,7 @@ def assemblies():
             if not os.path.exists(path):
                 os.makedirs(path)
             app.config["UPLOAD_FOLDER"] = path
-            basename = volunteer.fullname + "_" + os.path.splitext(filename)[0]+ "_" + str(sentence.sentenceid)
+            basename = volunteer.dialectregion + "_" + os.path.splitext(filename)[0]+ "_" + str(sentence.sentenceid)
             ext = os.path.splitext(filename)[1]
             filename = basename + ext
             #if os.path.isfile(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
@@ -116,13 +117,17 @@ def uploaded_boxart():
     return send_from_directory(app.config['UPLOAD_FOLDER'], "ogochukwu enendu_test_1.ogg")
  
 
-@app.route('/log_in', methods=['GET', 'POST'])
-def login():
+@app.route('/log_in', methods=['GET','POST'])
+def login():   
+    formss = LoginForm()
 
     if 'email' in session:
         return redirect(url_for('sentences', rand=0)) 
 
     if request.method == 'POST':
+        if formss.validate() == False:
+            return render_template('modal.html', formss=formss)
+        else:
             volunteer = Volunteer.query.filter_by(email=request.form.get("emailname")).first()
             #session['email'] = form.email.data
             if volunteer is None:
@@ -133,7 +138,7 @@ def login():
                 return redirect(url_for('sentences', rand=0))          
                         
     elif request.method == 'GET':
-      return render_template('index.html')
+        return render_template('index.html', formss=formss)
 
 @app.route('/logout')
 @login_required
@@ -141,4 +146,8 @@ def signout():
     logout_user()
     return render_template('logout.html')
 
-    
+
+@app.route('/modal')
+def modal():
+    form = LoginForm()
+    return render_template('modal.html', form=form)

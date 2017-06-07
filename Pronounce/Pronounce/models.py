@@ -1,7 +1,8 @@
 
 from Pronounce import app, mysql, db, login_manager
 from flask.ext.login import UserMixin
-from datetime import datetime 
+from datetime import datetime
+from werkzeug import generate_password_hash, check_password_hash
 from flask import request
 
 @login_manager.user_loader
@@ -13,6 +14,7 @@ class Volunteer(UserMixin, db.Model):
     __tablename__ = 'volunteer_test'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique = True)
+    pwdhash = db.Column(db.String(100))
     fullname = db.Column(db.String(100))
     phonenumber = db.Column(db.Integer, unique = True)
     age = db.Column(db.Integer)
@@ -21,15 +23,22 @@ class Volunteer(UserMixin, db.Model):
     gender = db.Column(db.String(45))
     recordings = db.relationship('Recording', backref='volunteer', lazy='dynamic')
 
-    def __init__(self, email, name, phonenr, age, dialectregion, originregion, gender):      
+    def __init__(self, email, password, name, phonenr, age, dialectregion, originregion, gender):      
         self.email = email.lower()
+        self.set_password(password)
         self.fullname = name.lower()
         self.phonenumber = phonenr
         self.age = age
         self.dialectregion = dialectregion.title()
         self.originregion = originregion.title()
-        self.gender = gender
-     
+        self.gender = gender.lower()
+    
+    def set_password(self, password):
+        self.pwdhash = generate_password_hash(password)
+   
+    def check_password(self, password):
+        return check_password_hash(self.pwdhash, password)    
+
     def __repr__(self):
         return '<Volunteer %r>' % self.fullname
 
@@ -41,15 +50,17 @@ class Sentence(db.Model):
     sentencedutch = db.Column(db.String(200), unique=True)
     sentenceenglish = db.Column(db.String(200), unique=True)
     sentencemaas = db.Column(db.String(200), unique=True)
+    sentenceeijsden = db.Column(db.String(200), unique=True)
     nrofrecordings = db.Column(db.Integer)
     recordings = db.relationship('Recording', backref='sentence', lazy='dynamic')
     
 
-    def __init__(self, category, sentencedutch, sentenceenglish, sentencemaas, nroforecordings):      
+    def __init__(self, category, sentencedutch, sentenceenglish, sentencemaas, sentenceeijsden, nroforecordings):      
         self.category = category.lower()
         self.sentencedutch = sentencedutch.title()  
         self.sentenceenglish = sentenceenglish.title()
         self.sentencemaas = sentencemaas.title()
+        self.sentenceeijsden = sentenceeijsden.title()
         self.nrofrecordings = nroforecordings      
 
     def __repr__(self):

@@ -25,19 +25,8 @@
             <span id="ok"><a href="#">Dismiss</a></span>
         </div>
     </div>
-    <div class="login_div text-center">
-        {% for message in form.email.errors %}
-        <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
-        {% endfor %}
-        {% for message in form.name.errors %}
-        <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
-        {% endfor %}
-        {% for message in form.dialectregion.errors %}
-        <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
-        {% endfor %}
-        {% for message in form.originregion.errors %}
-        <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
-        {% endfor %}
+    <div class="login_div text-center">       
+                
         {% for message in get_flashed_messages() %}
         <div class="alert alert-warning">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -58,7 +47,8 @@
                     <div class="modal-body">
                         <form class="form-inline" action="{{ url_for('login') }}" method=post>                          
                             <div class="form-group">
-                                <input type="email" class="form-control" name="emailname" placeholder="Email">
+                                <input type="email" class="form-control" name="emailname" placeholder="Email" required />
+                                <input type="password" class="form-control" name="passwordname" placeholder="wachtwoord" required />
                             </div>                   
                             <button type="submit" class="btn btn-primary">Sign in</button>
 
@@ -73,24 +63,43 @@
             <h1 class="text-center">Vul uw gegevens in</h1>         
             {{ form.hidden_tag() }}
 
+            {% for message in form.email.errors %}
+            <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+            {% endfor %}
             {{ form.email }}
             <br />
-
+            {% for message in form.password.errors %}
+            <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+            {% endfor %}
+            {{form.password}}
+            <br />
+            {% for message in form.name.errors %}
+            <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+            {% endfor %}
             {{ form.name }}
             <br />
            
-
+            {% for message in form.phonenr.errors %}
+            <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+            {% endfor %}
             {{ form.phonenr }}          
             <br />
 
             {{ form.age }}         
             <br />
-
+            {% for message in form.dialectregion.errors %}
+            <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+            {% endfor %}
             {{ form.dialectregion }}           
             <br />
-
+            {% for message in form.originregion.errors %}
+            <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+            {% endfor %}
             {{ form.originregion }}
-            <br />          
+            <br /> 
+            {% for message in form.gender.errors %}
+            <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+            {% endfor %}
           
             {% for subfield in form.gender %}
 
@@ -103,9 +112,47 @@
             {{ form.submit }}
             <br />
             <br />
-            <p style="color:gray">By submitting this form you agree to our terms of service</p>
+            <p style="color:gray">Door dit formulier ingevuld in te leveren stemt u in met de <a href="#myModal2" style="color:Highlight" data-toggle="modal">toestemmingsverklaring</a></p>
         </form>
         
+        <!-- Modal -->
+        <div id="myModal2" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Toestemmingsverklaring</h4>
+                    </div>
+                    <div class="modal-body">
+                        <dl>
+                            <dt>Naam onderzoek:</dt> 
+                            <dd>Stemmen uit Eijsden-Margraten en Maastricht</dd>
+                            <dt>Verantwoordelijke onderzoeker:</dt><dd>Prof. L. Cornips</dd>
+                            <br />
+                            <dt>Verklaring deelnemer</dt>
+                            <dd>
+                                Ik heb uitleg gekregen over het doel van het onderzoek, namelijk dat de zinnen die ik inspreek In mijn dialect bewaard zullen blijven en gebruikt zullen worden voor onderzoek en voor derden om af te luisteren. Ik heb vragen mogen stellen over het onderzoek. Ik neem vrijwillig deel aan het onderzoek. Ik stem in met deelname aan het onderzoek. Daarbij geef ik toestemming om de audio-opnamen voor dit onderzoek op te slaan in een databank, volgens de geldende regels van de
+                                Radboud Universiteit Nijmegen, en beschikbaar te houden voor wetenschappelijk onderzoek.
+                            </dd>
+
+                            <br />
+                            <dt>Toestemming gebruik audio-/video opnamen</dt>
+
+                            <dd>
+                                Ik geef toestemming om deze audio-opnamen af te spelen op congressen en voor onderwijsdoeleinden, en om deze audio-opnamen te verspreiden via Internet voor publiek gebruik.
+                            </dd>
+                        </dl>                          
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Begrijpelijk</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
     {% endblock %}
 </body>

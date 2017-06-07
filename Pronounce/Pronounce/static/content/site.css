@@ -82,8 +82,8 @@ input[type="checkbox"].input-validation-error {
     }
 
 .login_form {
-    width: 500px;
-    height: 675px;
+    width: 540px;
+    height: 750px;
     background-color: #ffffff;
     border-radius: 5px;
     margin: 0;
@@ -102,6 +102,9 @@ input[type="checkbox"].input-validation-error {
 form input#name,
 form input#dialectregion,
 form input#email,
+form input#emailname,
+form input#pword,
+form input#password,
 form input#originregion,
 form input#phonenr,
 form input#age {

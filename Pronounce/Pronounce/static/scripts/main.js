@@ -166,10 +166,10 @@ function download() {
 }
 
 function upload() {
-    var blob = new Blob(recordedBlobs, { type: 'audio/acc' });
+    var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
     var fd = new FormData();
     fd.append('fname', 'test.acc');
-    fd.append('data', blob, "test.acc");
+    fd.append('data', blob, "test.ogg");
     console.log(fd)
     var request = new XMLHttpRequest();
     request.open("POST", "/assemblies");
