@@ -71,13 +71,13 @@ class Recording(db.Model):
     __tablename__ = 'recordings_test'
     recordingid = db.Column(db.Integer, primary_key=True)
     recordingname = db.Column(db.String(120))
-    recordingblob = db.Column(db.String(200))
+    audiofilepath = db.Column(db.String(200))
     sentence_id = db.Column(db.Integer, db.ForeignKey('sentences_test.sentenceid'))
     volunteer_id = db.Column(db.Integer, db.ForeignKey('volunteer_test.id'))
 
-    def __init__(self, recordingname, recordingblob, sentence, volunteer):      
+    def __init__(self, recordingname, audiofilepath, sentence, volunteer):      
         self.recordingname = recordingname.lower()
-        self.recordingblob = recordingblob
+        self.audiofilepath = audiofilepath
         self.sentence_id = sentence
         self.volunteer_id = volunteer    
 
