@@ -31,9 +31,9 @@ CREATE TABLE `recordings_test` (
   PRIMARY KEY (`recordingid`),
   KEY `volunteer_id_idx` (`volunteer_id`),
   KEY `sentenceid_idx` (`sentence_id`),
-  CONSTRAINT `sentenceid` FOREIGN KEY (`sentence_id`) REFERENCES `sentences_test` (`sentenceid`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `sentenceid` FOREIGN KEY (`sentence_id`) REFERENCES `sentences_test` (`sentenceid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `volunteer_id` FOREIGN KEY (`volunteer_id`) REFERENCES `volunteer_test` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -45,4 +45,4 @@ CREATE TABLE `recordings_test` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-06-07 20:11:53
+-- Dump completed on 2017-06-08 12:30:02
