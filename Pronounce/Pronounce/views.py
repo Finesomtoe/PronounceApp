@@ -124,12 +124,7 @@ def assemblies():
             return "Upload successful"
  
 
-@app.route('/boxart')
-def uploaded_boxart():
-    return send_from_directory(app.config['UPLOAD_FOLDER'], "ogochukwu enendu_test_1.ogg")
- 
-
-@app.route('/log_in', methods=['GET','POST'])
+@app.route('/logged_in', methods=['GET','POST'])
 def login():   
     form = LoginForm() 
 
@@ -144,10 +139,10 @@ def login():
                 return redirect(url_for('home'))               
             else:
                 login_user(volunteer)
-                return render_template('splash.html')         
+                return redirect(url_for('instructie'))         
                         
     elif request.method == 'GET':
-        return render_template('index.html', form=form)
+        return redirect(url_for('home'))
 
 @app.route('/logout')
 @login_required
@@ -156,7 +151,23 @@ def signout():
     return render_template('logout.html')
 
 
-@app.route('/modal')
-def modal():
-    form = LoginForm()
-    return render_template('modal.html', form=form)
+@app.route('/instructie')
+@login_required
+def instructie():
+    return render_template('splash.html')
+
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    if current_user.is_authenticated:
+        return redirect(url_for('instructie'))
+    else:
+        return redirect(url_for('home'))
+
+@app.errorhandler(500)
+def page_not_found(e):
+    if current_user.is_authenticated:
+        return redirect(url_for('instructie'))
+    else:
+        return redirect(url_for('home'))
