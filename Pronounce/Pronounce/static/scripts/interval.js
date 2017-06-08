@@ -1,4 +1,4 @@
-  var seconds_left = 10;
+  var seconds_left = 20;
             var interval = setInterval(function () {
                 document.getElementById('timerdiv').innerHTML = --seconds_left;
 

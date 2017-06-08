@@ -12,11 +12,9 @@ from werkzeug.utils import secure_filename
 from random import randint, sample
 
 sid = 0
-global rndNumber 
-global length
-global file_number
-rndNumber = sample(range(1,31), 15)
-length = len(rndNumber) - 1
+
+global string 
+string = "My name is Somto"
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -59,6 +57,20 @@ def about():
         message='Your application description page.'
     )
 
+@app.route('/passdata', methods=['GET', 'POST'])
+def passdata():
+    if request.method == 'POST':
+        global rndNumber 
+        global length
+        global file_number
+        global dialect
+        global sentence_count
+        dialect = request.form.get("dialect")
+        sentence_count = request.form.get("sentencecount")
+        rndNumber = sample(range(1, 69), int(sentence_count))
+        length = len(rndNumber) - 1
+        return redirect(url_for('sentences', rand=0))
+
 @app.route('/sentences/<int:rand>')
 @login_required
 def sentences(rand):
@@ -71,7 +83,7 @@ def sentences(rand):
     else:
         global sid
         sid = rndNumber[rand]
-        return render_template('sentences.html', sentence=sentence, rnd=rnd, length=length)
+        return render_template('sentences.html', sentence=sentence, rnd=rnd, length=length, dialect=dialect)
 
     
 
@@ -92,7 +104,7 @@ def assemblies():
             if not os.path.exists(path):
                 os.makedirs(path)
             app.config["UPLOAD_FOLDER"] = path
-            basename = volunteer.dialectregion + "_" + os.path.splitext(filename)[0]+ "_" + str(sentence.sentenceid)
+            basename = volunteer.dialectregion  + str(sentence.sentenceid) + "_" + "V" + str(volunteer.id)
             ext = os.path.splitext(filename)[1]
             filename = basename + ext
             #if os.path.isfile(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
@@ -119,14 +131,11 @@ def uploaded_boxart():
 
 @app.route('/log_in', methods=['GET','POST'])
 def login():   
-    formss = LoginForm()
-
-    if 'email' in session:
-        return redirect(url_for('sentences', rand=0)) 
+    form = LoginForm() 
 
     if request.method == 'POST':
-        if formss.validate() == False:
-            return render_template('modal.html', formss=formss)
+        if form.validate() == False:
+            return render_template('badlogin.html', form=form)
         else:
             volunteer = Volunteer.query.filter_by(email=request.form.get("emailname")).first()
             #session['email'] = form.email.data
@@ -135,10 +144,10 @@ def login():
                 return redirect(url_for('home'))               
             else:
                 login_user(volunteer)
-                return redirect(url_for('sentences', rand=0))          
+                return render_template('splash.html')         
                         
     elif request.method == 'GET':
-        return render_template('index.html', formss=formss)
+        return render_template('index.html', form=form)
 
 @app.route('/logout')
 @login_required

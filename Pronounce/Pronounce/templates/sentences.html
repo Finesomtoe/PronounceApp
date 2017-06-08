@@ -25,8 +25,13 @@
             <h4 id="stoptext" style="color:dodgerblue; display:none">Recording Stopped</h4>
             <h4 id="submittext" style="color:dodgerblue; display:none">Thank you, your audio recording has now been submitted.</h4>
             <span class="glyphicon glyphicon-record" style="color:indianred"></span>
-            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Mestreech</h5>
+            {% if dialect == "Mestreech" %}
+            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Mestreech (Uitspreek dit)</h5>
                 <h2><a href="#" style="color:black" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentencemaas}}</a></h2>
+            {% else %}
+            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Eijsden (Uitspreek dit)</h5>
+            <h2><a href="#" style="color:black" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentenceeijsden}}</a></h2>
+            {% endif %}
             <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Dutch</h5>
                 <h3>{{sentence.sentencedutch}}</h3>              
             <div id="container">
@@ -38,7 +43,7 @@
                     <button id="record" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue">Opnemen <span class="glyphicon glyphicon-record" style="color:indianred"></span></button>
                     <button id="play" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Spelen <span class="glyphicon glyphicon-play" style="color:dodgerblue"></span></button>
                     <button id="download" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Downloaden <span class="glyphicon glyphicon-download-alt" style="color:cadetblue"></span></button>
-                    <button id="submit" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Verzenden <span class="glyphicon glyphicon-send" style="color:green"></span></button>
+                    <button id="submit" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Opslaan <span class="glyphicon glyphicon-send" style="color:green"></span></button>
                 </div>
 
             </div>

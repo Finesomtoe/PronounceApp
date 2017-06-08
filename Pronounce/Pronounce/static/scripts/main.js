@@ -103,7 +103,7 @@ function toggleRecording() {
 
 function startRecording() {
     recordedBlobs = [];
-    var options = { mimeType: 'audio/mp3' };
+    var options = { mimeType: 'audio/opus' };
     if (!MediaRecorder.isTypeSupported(options.mimeType)) {
         console.log(options.mimeType + ' is not Supported');
         options = { mimeType: 'audio/ogg' };
@@ -166,17 +166,54 @@ function download() {
 }
 
 function upload() {
-    var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
-    var fd = new FormData();
-    fd.append('fname', 'test.acc');
-    fd.append('data', blob, "test.ogg");
+    var browserInfo = getBrowserInfo();
+    if (browserInfo.slice(0,5) == 'Firef')
+    {
+        var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
+        var fd = new FormData();
+        fd.append('fname', 'test.acc');
+        fd.append('data', blob, "test.ogg");
+    }
+    else if (browserInfo.slice(0, 5) == 'Chrom') {
+        var blob = new Blob(recordedBlobs, { type: 'audio/webm' });
+        var fd = new FormData();
+        fd.append('fname', 'test.webm');
+        fd.append('data', blob, "test.webm");
+    }
+    else if (browserInfo.slice(0, 5) == 'Edge ') {
+        var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
+        var fd = new FormData();
+        fd.append('fname', 'test.ogg');
+        fd.append('data', blob, "test.ogg");
+    }
     console.log(fd)
+    console.log(browserInfo);
     var request = new XMLHttpRequest();
     request.open("POST", "/assemblies");
     request.send(fd)
     $("#submittext").show();
 
 }
+
+function getBrowserInfo() {
+    var ua = navigator.userAgent, tem,
+        M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if (/trident/i.test(M[1])) {
+        tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE ' + (tem[1] || '');
+    }
+    if (M[1] === 'Chrome') {
+        tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+        if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+    }
+    M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+    if ((tem = ua.match(/version\/(\d+)/i)) != null)
+        M.splice(1, 1, tem[1]);
+    return M.join(' ');
+}
+
+
+
 
 function getBlob() {
     var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
