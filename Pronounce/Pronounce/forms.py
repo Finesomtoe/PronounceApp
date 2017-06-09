@@ -7,13 +7,13 @@ from wtforms import StringField, IntegerField, RadioField, TextField, TextAreaFi
 class VolunteersForm(Form):
   email = TextField("Email",  [validators.Required("Vul alsjeblieft uw e-mailadres in."), validators.Email("Please enter your email address.")], render_kw={"placeholder": "E-mailadres"})
   password = PasswordField("Password", [validators.Required("Vul alsjeblieft je wachtwoord in.")], render_kw={"placeholder": "Password"})
-  name = TextField("Naam",  [validators.Required("Vul alsjeblieft je volledige naam in."), validators.Regexp('[A-Za-z]', 0, 'Names must have only letters')], render_kw={"placeholder": "Voor-en Achternaam"})
-  phonenr = TextField("Mobiele nummer", [validators.Optional(strip_whitespace=True), validators.Regexp('[0-9+()*#]+', 0, 'You entered a false character')], render_kw={"placeholder": "Mobiel nummer(Optioneel)"})
+  name = TextField("Naam",  [validators.Optional(strip_whitespace=True), validators.Regexp('[A-Za-z]', 0, 'Names must have only letters')], render_kw={"placeholder": "Voor-en Achternaam"})
+  phonenr = TextField("Mobiele nummer", [validators.Optional(strip_whitespace=True), validators.Regexp('[0-9+()*#]+', 0, 'You entered a false character')], render_kw={"placeholder": "Mobiel nummer"})
   age = IntegerField("Leeftijd", [validators.Required("Vul alstublieft uw leeftijd in")], render_kw={"placeholder": "Leeftijd"})
   dialectregion = TextField("Spreekt het dialect van? (buurt)",  [validators.Required("Vul alstublieft het dialect in dat u spreekt.")], render_kw={"placeholder": "Spreekt het dialect van (buurt)"})
   originregion = TextField("Is geboren in..",  [validators.Required("Vul alstublieft het dorp/de stad in waar u het langst bent gewoond.")], render_kw={"placeholder": "Het langste gewoond in? (dorp,stad)"})
   gender = RadioField("Gender", [validators.Required("Selecteer een geslacht alstublieft")], choices=[('man', 'Man'), ('vrouw', 'Vrouw')])
-  submit = SubmitField("Ga Verder")
+  submit = SubmitField("Ga verder")
  
   def __init__(self, *args, **kwargs):
     Form.__init__(self, *args, **kwargs)

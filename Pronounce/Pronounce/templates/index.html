@@ -4,10 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - My Flask Application</title>
+    <title>{{ title }} - mestreechs-eijsden voices</title>
     <link rel="icon" href="/static/favicon.ico">
     <script src="/static/scripts/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="/static/scripts/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
@@ -20,7 +19,7 @@
     {% block content %}
     <div id="barwrap">
         <div class="bar">
-            <span id="text">Deze site werkt het best met Firefox of Chrome. Het werkt niet met Internet explorer</span>
+            <span id="text">Deze site is voor onderzoeksdoeleinden. Het werkt het best met Firefox of Chrome. Vul alstublieft het formulier in om door te gaan</span>
             <span id="otherimg"></span>
             <span id="ok"><a href="#">Dismiss</a></span>
         </div>
@@ -29,7 +28,7 @@
                 
         {% for message in get_flashed_messages() %}
         <div class="alert alert-warning">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <button onclick="myMove()" type="button" class="close" data-dismiss="alert">&times;</button>
             {{ message }}
         </div>
         {% endfor %}
@@ -75,18 +74,9 @@
             {% endfor %}
             {{form.password}}
             <br />
-            {% for message in form.name.errors %}
+            {% for message in form.age.errors %}
             <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
-            {% endfor %}
-            {{ form.name }}
-            <br />
-           
-            {% for message in form.phonenr.errors %}
-            <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
-            {% endfor %}
-            {{ form.phonenr }}          
-            <br />
-
+            {% endfor %}                   
             {{ form.age }}         
             <br />
             {% for message in form.dialectregion.errors %}
@@ -109,7 +99,7 @@
             {{ subfield.label }}
           
             {% endfor %}
-            <br />
+            <br /><br />
            
             {{ form.submit }}
             <br />

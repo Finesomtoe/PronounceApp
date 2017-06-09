@@ -13,8 +13,6 @@ from random import randint, sample
 
 sid = 0
 
-global string 
-string = "My name is Somto"
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -74,6 +72,7 @@ def passdata():
 @app.route('/sentences/<int:rand>')
 @login_required
 def sentences(rand):
+    form = VolunteersForm()
     """Renders the sentence page."""
     sentence = Sentence.query.get(int(rndNumber[rand]))
     rnd = rand
@@ -83,7 +82,7 @@ def sentences(rand):
     else:
         global sid
         sid = rndNumber[rand]
-        return render_template('sentences.html', sentence=sentence, rnd=rnd, length=length, dialect=dialect)
+        return render_template('sentences.html', sentence=sentence, rnd=rnd, length=length, dialect=dialect, form=form)
 
     
 
@@ -156,7 +155,18 @@ def signout():
 def instructie():
     return render_template('splash.html')
 
-
+@app.route('/update', methods=['GET', 'POST'])
+def updatevolunteer():
+    form = VolunteersForm()
+    if request.method == 'POST':
+        volunteer = Volunteer.query.filter_by(email=current_user.email).first()
+        if volunteer is None:
+            flash("U kunt deze actie niet uitvoeren. je bent niet ingelogd")
+        else:
+            volunteer.fullname = request.form.get("fullname")
+            volunteer.phonenumber = request.form.get("phonenr")
+            db.session.commit()
+            return redirect(url_for('signout'))
 
 @app.errorhandler(404)
 def page_not_found(e):

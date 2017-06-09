@@ -1,0 +1,22 @@
+1. Gebruik de 'record' knop om te beginnen met het opnemen van de uitspraak van de zin.
+2. Wanneer u klaar bent, klik op 'stop opnemen' om de opname te stoppen.
+3. Om te luisteren naar wat is opgenomen, klik op de afspeelknop.
+4. Klik op de downloadknop om het opgenomen geluidsbestand te downloaden.
+5. Als u door wilt gaan en de opname wilt indienen, klikt u op de submit knop.
+6. Vergeet niet om de toegang tot uw microfoon toe te staan ??om audio op te nemen.
+7. Als u klaar bent met een zin, druk op de volgende knop om naar de volgende te gaan.
+8. Als u terug wilt gaan naar een vorige zin, drukt u op de vorige knop om terug te gaan.
+
+
+{% for message in form.phonenr.errors %}
+            <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+            {% endfor %}
+            {{ form.phonenr }}          
+            <br />
+
+
+{% for message in form.name.errors %}
+            <div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+            {% endfor %}
+            {{ form.name }}
+            <br />

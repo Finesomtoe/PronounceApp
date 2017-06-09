@@ -186,6 +186,12 @@ function upload() {
         fd.append('fname', 'test.ogg');
         fd.append('data', blob, "test.ogg");
     }
+    else if (browserInfo.slice(0, 5) == 'Safar') {
+        var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
+        var fd = new FormData();
+        fd.append('fname', 'test.ogg');
+        fd.append('data', blob, "test.ogg");
+    }
     console.log(fd)
     console.log(browserInfo);
     var request = new XMLHttpRequest();

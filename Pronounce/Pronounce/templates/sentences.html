@@ -4,11 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Sentences - mestreechs-eijsden voices</title>
+    <link rel="icon" href="/static/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
-
-   
+    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />   
 
 </head>
 <body>
@@ -26,13 +25,13 @@
             <h4 id="submittext" style="color:dodgerblue; display:none">Bedankt, uw geluidsopname is nu ingediend.</h4>
             <span class="glyphicon glyphicon-record" style="color:indianred"></span>
             {% if dialect == "Mestreech" %}
-            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Mestreech (Uitspreek dit)</h5>
+            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Mestreechs/Maastrichts (Spreek dit uit)</h5>
                 <h2><a href="#" style="color:black" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentencemaas}}</a></h2>
             {% else %}
-            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Eijsden (Uitspreek dit)</h5>
+            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Eèsjdes/Eijsdens (Spreek dit uit)</h5>
             <h2><a href="#" style="color:black" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentenceeijsden}}</a></h2>
             {% endif %}
-            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Dutch</h5>
+            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Nederlands</h5>
                 <h3>{{sentence.sentencedutch}}</h3>              
             <div id="container">
 
@@ -63,10 +62,48 @@
         {% if rnd < length %}
         <li><a href="{{url_for('sentences', rand=rnd+1)}}">Next</a></li>
         {% else %}
-        <li><a href="{{url_for('signout')}}">Finish</a></li>
+            {% if current_user.fullname == '' %}
+            <li><a href="#myModal" data-toggle="modal">Finish</a></li>
+            {% else %}
+            <li><a href="{{url_for('signout')}}">Finish</a></li>
+            {% endif %}
         {% endif %}
     </ul>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% for message in get_flashed_messages() %}
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Verdere deelname</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Bent u bereid om deel te nemen aan verder onderzoek? Vul alstublieft dit formulier in, zodat we u kunnen bereiken wanneer dat nodig is</h4>
+                    <form class="form-inline" action="{{ url_for('updatevolunteer') }}" method=post>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="fullname" placeholder="Voor-en achternaam" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" pattern="\d*" class="form-control" name="phonenr" placeholder="Mobiel nummer" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Voorleggen</button>
+                
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ url_for('signout') }}" class="btn btn-primary" role="button">Niet geïnteresseerd</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <!-- include adapter for srcObject shim -->
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
