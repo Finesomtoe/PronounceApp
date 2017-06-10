@@ -101,6 +101,7 @@ function toggleRecording() {
     }
 }
 
+
 function startRecording() {
     recordedBlobs = [];
     var options = { mimeType: 'audio/opus' };
@@ -123,7 +124,7 @@ function startRecording() {
         $("#submittext").hide();
     } catch (e) {
         console.error('Exception while creating MediaRecorder: ' + e);
-        alert('Oops! There was a problem: Please ensure you allowed access to your microphone'
+        alert('Oeps, zorg dat je de toegang tot de microfoon opent'
             );
         return;
     }

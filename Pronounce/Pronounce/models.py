@@ -11,7 +11,7 @@ def load_user(user_id):
 
 class Volunteer(UserMixin, db.Model):
     """description of class"""
-    __tablename__ = 'volunteer_test'
+    __tablename__ = 'volunteer'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique = True)
     pwdhash = db.Column(db.String(100))
@@ -44,7 +44,7 @@ class Volunteer(UserMixin, db.Model):
 
 class Sentence(db.Model):
     """description of class"""
-    __tablename__ = 'sentences_test'
+    __tablename__ = 'sentence'
     sentenceid = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(120))
     sentencedutch = db.Column(db.String(200), unique=True)
@@ -68,12 +68,12 @@ class Sentence(db.Model):
 
 class Recording(db.Model):
     """description of class"""
-    __tablename__ = 'recordings_test'
+    __tablename__ = 'recording'
     recordingid = db.Column(db.Integer, primary_key=True)
     recordingname = db.Column(db.String(120))
     audiofilepath = db.Column(db.String(200))
-    sentence_id = db.Column(db.Integer, db.ForeignKey('sentences_test.sentenceid'))
-    volunteer_id = db.Column(db.Integer, db.ForeignKey('volunteer_test.id'))
+    sentence_id = db.Column(db.Integer, db.ForeignKey('sentence.sentenceid'))
+    volunteer_id = db.Column(db.Integer, db.ForeignKey('volunteer.id'))
 
     def __init__(self, recordingname, audiofilepath, sentence, volunteer):      
         self.recordingname = recordingname.lower()

@@ -19,20 +19,20 @@
 -- Table structure for table `recordings_test`
 --
 
-DROP TABLE IF EXISTS `recordings_test`;
+DROP TABLE IF EXISTS `recording`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `recordings_test` (
+CREATE TABLE `recording` (
   `recordingid` int(11) NOT NULL AUTO_INCREMENT,
   `recordingname` varchar(200) NOT NULL,
-  `recordingblob` varchar(200) NOT NULL,
+  `audiofilepath` varchar(200) NOT NULL,
   `sentence_id` int(11) NOT NULL,
   `volunteer_id` int(11) NOT NULL,
   PRIMARY KEY (`recordingid`),
   KEY `volunteer_id_idx` (`volunteer_id`),
   KEY `sentenceid_idx` (`sentence_id`),
-  CONSTRAINT `sentenceid` FOREIGN KEY (`sentence_id`) REFERENCES `sentences_test` (`sentenceid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `volunteer_id` FOREIGN KEY (`volunteer_id`) REFERENCES `volunteer_test` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `sentenceid` FOREIGN KEY (`sentence_id`) REFERENCES `sentence` (`sentenceid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `volunteer_id` FOREIGN KEY (`volunteer_id`) REFERENCES `volunteer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

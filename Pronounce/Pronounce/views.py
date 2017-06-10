@@ -112,13 +112,13 @@ def assemblies():
                 #filename = basename + ext
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            recording = Recording(volunteer.fullname + "_" + str(sentence.sentenceid), filepath, sentence.sentenceid, volunteer.id)
+            recording = Recording(basename, filepath, sentence.sentenceid, volunteer.id)
             existing_record = Recording.query.filter_by(recordingname = recording.recordingname).first()
             if existing_record is None:
                 db.session.add(recording)
                 db.session.commit()
             else:
-                flash("Your previous recording will be overwritten")
+                flash("Hey, je hebt eerder de vorige zin uitgesproken. Dus, de opname die u heeft ingediend, heeft de oude overgeschreven. Geen probleem, ga verder met uitspraak!")
             print (app.config['UPLOAD_FOLDER'])
             return "Upload successful"
  

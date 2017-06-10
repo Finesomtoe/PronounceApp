@@ -19,14 +19,14 @@
 -- Table structure for table `volunteer_test`
 --
 
-DROP TABLE IF EXISTS `volunteer_test`;
+DROP TABLE IF EXISTS `volunteer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `volunteer_test` (
+CREATE TABLE `volunteer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
   `pwdhash` varchar(100) NOT NULL,
-  `fullname` varchar(100) NOT NULL,
+  `fullname` varchar(100) DEFAULT NULL,
   `phonenumber` varchar(20) DEFAULT NULL,
   `age` int(11) NOT NULL,
   `dialectregion` varchar(100) NOT NULL,

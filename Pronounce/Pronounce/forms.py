@@ -6,7 +6,7 @@ from wtforms import StringField, IntegerField, RadioField, TextField, TextAreaFi
 
 class VolunteersForm(Form):
   email = TextField("Email",  [validators.Required("Vul alsjeblieft uw e-mailadres in."), validators.Email("Please enter your email address.")], render_kw={"placeholder": "E-mailadres"})
-  password = PasswordField("Password", [validators.Required("Vul alsjeblieft je wachtwoord in.")], render_kw={"placeholder": "Password"})
+  password = PasswordField("Password", [validators.Required("Vul alsjeblieft je wachtwoord in.")], render_kw={"placeholder": "Wachtwoord"})
   name = TextField("Naam",  [validators.Optional(strip_whitespace=True), validators.Regexp('[A-Za-z]', 0, 'Names must have only letters')], render_kw={"placeholder": "Voor-en Achternaam"})
   phonenr = TextField("Mobiele nummer", [validators.Optional(strip_whitespace=True), validators.Regexp('[0-9+()*#]+', 0, 'You entered a false character')], render_kw={"placeholder": "Mobiel nummer"})
   age = IntegerField("Leeftijd", [validators.Required("Vul alstublieft uw leeftijd in")], render_kw={"placeholder": "Leeftijd"})
