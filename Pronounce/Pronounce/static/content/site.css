@@ -66,7 +66,7 @@ input[type="checkbox"].input-validation-error {
 .login_div {
     position: absolute;
     width: 500px;
-    height: 500px;
+    height: 520px;
     /* Center form in page horizontally & vertically */
     top: 33%;
     left: 50%;
@@ -83,7 +83,7 @@ input[type="checkbox"].input-validation-error {
 
 .login_form {
     width: 540px;
-    height: 610px;
+    height: 660px;
     background-color: #ffffff;
     border-radius: 5px;
     margin: 0;

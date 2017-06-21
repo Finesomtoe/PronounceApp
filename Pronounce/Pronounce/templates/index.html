@@ -19,7 +19,7 @@
     {% block content %}
     <div id="barwrap">
         <div class="bar">
-            <span id="text">Deze site is voor onderzoeksdoeleinden. Het werkt het best met Firefox of Chrome. Vul alstublieft het formulier in om door te gaan</span>
+            <span id="text">Deze site is voor onderzoeksdoeleinden. Het werkt alleen met Firefox of Chrome. Vul alstublieft het formulier in om door te gaan</span>
             <span id="otherimg"></span>
             <span id="ok"><a href="#">Dismiss</a></span>
         </div>
@@ -32,7 +32,7 @@
             {{ message }}
         </div>
         {% endfor %}
-        <a href="#myModal" style="color:dodgerblue; text-decoration:underline; text-align:center" role="button" class="btn" data-toggle="modal">Heeft dit formulier al ingevuld? Log in!</a>
+        
         <!-- Modal -->
         <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-lg">
@@ -61,6 +61,7 @@
         </div>
         <form class="login_form" action="{{ url_for('home') }}" method="post">
             <br />
+            <a style="color:dodgerblue; font-size:15px; text-align:center">Heeft dit formulier al ingevuld?</a> <button href="#myModal" class="btn btn-primary btn-md" data-toggle="modal">Log in!</button><br /><br />
             <h1 class="text-center">Vul je gegevens in</h1>         
             {{ form.hidden_tag() }}
 
@@ -102,7 +103,6 @@
             <br /><br />
            
             {{ form.submit }}
-            <br />
             <br />
             <p style="color:gray">Door dit formulier ingevuld in te leveren stemt u in met de <a href="#myModal2" style="color:Highlight" data-toggle="modal">toestemmingsverklaring</a></p>
         </form>
