@@ -30,3 +30,5 @@ C:\Users\Enendu\Documents\GitHub\Pronounce\PronounceApp\Maastricht11_V12.webm
 /scratch2/www/recordingapp/repo/Pronounce/Pronounce/uploads/Maastricht11_V12.webm
 
 C:\Users\Enendu\Documents\GitHub\MaasVoices\MaasVoicesApp\MaasVoicesApp\MaasVoicesApp\static\Maastricht11_v12.webm
+
+/scratch2/www/recordingapp/repo/Pronounce/Pronounce/uploads/Maastricht11_V15.ogg
