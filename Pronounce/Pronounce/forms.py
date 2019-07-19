@@ -3,6 +3,7 @@ from .models import Volunteer
 from Pronounce import db
 from flask import request 
 from wtforms import StringField, IntegerField, RadioField, TextField, TextAreaField, SubmitField, validators, ValidationError, PasswordField, BooleanField
+from wtforms.validators import DataRequired, Length, Email, Regexp, EqualTo
 
 class VolunteersForm(Form):
   email = TextField("Email",  [validators.Required("Vul alsjeblieft uw e-mailadres in."), validators.Email("Please enter your email address.")], render_kw={"placeholder": "E-mailadres"})
@@ -43,3 +44,20 @@ class LoginForm(Form):
             return True
         else:
             return False
+
+class ChangePasswordForm(Form):
+     old_password = PasswordField('Old password', validators=[DataRequired()])
+     password = PasswordField('New password', validators=[DataRequired(), EqualTo('password2', message='Passwords must match.')])
+     password2 = PasswordField('Confirm new password', validators=[DataRequired()])
+     submit = SubmitField('Update Password')
+
+
+class PasswordResetRequestForm(Form):
+    email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
+    submit = SubmitField('Reset Password')
+
+
+class PasswordResetForm(Form):
+    password = PasswordField('New Password', validators=[DataRequired(), EqualTo('password2', message='Passwords must match')])
+    password2 = PasswordField('Confirm password', validators=[DataRequired()])
+    submit = SubmitField('Reset Password')

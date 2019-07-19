@@ -168,36 +168,40 @@ function download() {
 
 function upload() {
     var browserInfo = getBrowserInfo();
+    console.log(browserInfo);
+    var x = document.getElementById("langtext").innerHTML;
+    var splitx = x.split(" ");
+    console.log(browserInfo + "Hi" + splitx[0].toString());
     if (browserInfo.slice(0,5) == 'Firef')
     {
         var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
         var fd = new FormData();
-        fd.append('fname', 'test.acc');
+        fd.append('fname', splitx[0].toString());
         fd.append('data', blob, "test.ogg");
     }
     else if (browserInfo.slice(0, 5) == 'Chrom') {
         var blob = new Blob(recordedBlobs, { type: 'audio/webm' });
         var fd = new FormData();
-        fd.append('fname', 'test.webm');
+        fd.append('fname', splitx[0].toString()); 
         fd.append('data', blob, "test.webm");
     }
     else if (browserInfo.slice(0, 5) == 'Edge ') {
         var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
         var fd = new FormData();
-        fd.append('fname', 'test.ogg');
+        fd.append('fname', splitx[0].toString());
         fd.append('data', blob, "test.ogg");
     }
     else if (browserInfo.slice(0, 5) == 'Safar') {
         var blob = new Blob(recordedBlobs, { type: 'audio/ogg' });
         var fd = new FormData();
-        fd.append('fname', 'test.ogg');
+        fd.append('fname', splitx[0].toString());
         fd.append('data', blob, "test.ogg");
     }
     console.log(fd)
     console.log(browserInfo);
     var request = new XMLHttpRequest();
     request.open("POST", "/assemblies");
-    request.send(fd)
+    request.send(fd);
     $("#submittext").show();
 
 }

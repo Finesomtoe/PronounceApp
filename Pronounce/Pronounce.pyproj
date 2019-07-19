@@ -17,7 +17,7 @@
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
     <Name>Pronounce</Name>
     <RootNamespace>Pronounce</RootNamespace>
-    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|myenv|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,6 +28,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Pronounce\dbinsert.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Pronounce\forms.py">
       <SubType>Code</SubType>
     </Compile>
@@ -47,6 +50,7 @@
     <Folder Include="Pronounce\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pronounce\static\scripts\example.js" />
     <Content Include="Pronounce\static\scripts\interval.js" />
     <Content Include="Pronounce\static\scripts\main.js" />
     <Content Include="Pronounce\static\scripts\pager.js" />
@@ -86,10 +90,19 @@
     <Content Include="Pronounce\templates\layout.html" />
   </ItemGroup>
   <ItemGroup>
-    <Interpreter Include="..\..\env\">
-      <Id>env</Id>
+    <Interpreter Include="..\..\myenv\">
+      <Id>myenv</Id>
       <Version>3.6</Version>
-      <Description>env (Python 3.6 (64-bit))</Description>
+      <Description>myenv (Python 3.6 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+    <Interpreter Include="newenv\">
+      <Id>newenv</Id>
+      <Version>3.6</Version>
+      <Description>newenv (Python 3.6 (64-bit))</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>

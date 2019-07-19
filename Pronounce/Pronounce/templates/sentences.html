@@ -4,35 +4,67 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentences - mestreechs-eijsden voices</title>
+    <title>Sentences - mestreechs-eijsden-sjömmert  voices</title>
     <link rel="icon" href="/static/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />   
+    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/bootstrap-social.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/font-awesome.css" />
+    <link href="/static/content/fontello.css" rel="stylesheet">
 
 </head>
 <body>
     {% block content %}
     <div class="container">
+        {% if remaining_sentences > 0 and remaining_sentences < 69 %}
         {% for message in get_flashed_messages() %}
         <div class="alert alert-warning">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             {{ message }}
         </div>
         {% endfor %}
+        <ul class="pager">
+            {% if rnd > 0 %}
+            <li><a href="{{url_for('sentences', rand=rnd-1)}}">Previous</a></li>
+            {% else %}
+            <li class="disabled"><a href="#">Previous</a></li>
+            {% endif %}
+            {% if rnd < length %}
+            <li><a href="{{url_for('sentences', rand=rnd+1)}}">Next</a></li>
+            {% else %}
+            {% if current_user.fullname == '' %}
+            <li><a href="#finishModal" data-toggle="modal">Finish</a></li>
+            {% else %}
+            <li><a href="{{url_for('signout')}}">Finish</a></li>
+            {% endif %}
+            {% endif %}
+            <div class="right-section">
+                {% if recording_count > 0 %}
+                <a href="#output" id="myButton" class="btn btn-primary btn-md">View Media</a>
+                <a href="{{url_for('signout')}}" class="btn btn-primary btn-md">Log out</a>
+                {% else %}
+                <p>No Media</p>
+                {% endif %}
+            </div>
+        </ul>
+
         <div class="midsection">
             <h4 id="starttext" style="color:dodgerblue; display:none">Opnemen is aan de gang...</h4>
             <h4 id="stoptext" style="color:dodgerblue; display:none">De opname is gestopt</h4>
             <h4 id="submittext" style="color:dodgerblue; display:none">Bedankt, uw geluidsopname is nu ingediend.</h4>
             <span class="glyphicon glyphicon-record" style="color:indianred"></span>
             {% if dialect == "Mestreech" %}
-            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Mestreechs/Maastrichts (Spreek dit uit)</h5>
-                <h2><a href="#" style="color:black" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentencemaas}}</a></h2>
-            {% else %}
-            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Eèsjdes/Eijsdens (Spreek dit uit)</h5>
+            <h5 id="langtext" class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Maastricht (Spreek dit uit)</h5>
+            <h2><a href="#" style="color:black" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentencemaas}}</a></h2>
+            {% elif dialect == "Eijsden" %}
+            <h5 id="langtext" class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Eijsden (Spreek dit uit)</h5>
             <h2><a href="#" style="color:black" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentenceeijsden}}</a></h2>
+            {% elif dialect == "Schimmerts" %}
+            <h5 id="langtext" class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Sjömmert (Spreek dit uit)</h5>
+            <h2><a href="#" style="color:black" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentenceschimmerts}}</a></h2>
             {% endif %}
             <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Nederlands</h5>
-                <h3>{{sentence.sentencedutch}}</h3>              
+            <h3>{{sentence.sentencedutch}}</h3>
             <div id="container">
 
                 <audio id="gum" autoplay muted></audio>
@@ -46,31 +78,204 @@
                 </div>
 
             </div>
-            
+
             <p id="paragraph"></p>
-                <div class="bottom-left">
-                    <p>Category: {{sentence.category}}</p>
-                </div>
+            <div class="bottom-left">
+                <p>Category: {{sentence.category}}</p>
+            </div>
         </div>
-    </div>
-    <ul class="pager">
-        {% if rnd > 0 %}
-        <li><a href="{{url_for('sentences', rand=rnd-1)}}">Previous</a></li>
-        {% else %}
-        <li class="disabled"><a href="#">Previous</a></li>
-        {% endif %}
-        {% if rnd < length %}
-        <li><a href="{{url_for('sentences', rand=rnd+1)}}">Next</a></li>
-        {% else %}
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">First 10 Spoken Sentences</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table id="example" class="table table-striped table-colored table-hover tablemobile">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for recording in recordings %}
+                                <tr>
+                                    <td>{{ loop.index + (mypage - 1) * per_page }}</td>
+                                    <td>{{ recording.recordingname }}</td>
+                                    <td>
+                                        {% for key in audiofiles %}
+                                        {% if recording.audiofilepath == key %}
+                                        <button class="btn btn-primary btn-md" onclick="this.firstChild.play(); this.style.color = 'green'"><audio><source src="{{audiofiles[key]}}" type="audio/webm"></audio>Play</button>
+                                        <!--i class="fa fa-play pr-10" style="color:#bd833d" onclick="this.firstChild.play(); this.style.color = 'green'"><audio><source src="{{audiofiles[key]}}" type="audio/webm"></audio></!--i>&nbsp;-->
+                                        {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div id="output" class="midsection2">
+                <table class="table table-striped table-colored table-hover tablemobile">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for recording in recordings %}
+                        <tr>
+                            <td>{{ loop.index + (mypage - 1) * per_page }}</td>
+                            <td>{{ recording.recordingname }}</td>
+                            <td>
+                                {% for key in audiofiles %}
+                                {% if recording.audiofilepath == key %}
+                                <button class="btn btn-primary btn-md" onclick="this.firstChild.play(); this.style.color = 'green'"><audio><source src="{{audiofiles[key]}}" type="audio/webm"></audio>Play</button>
+                                <!--i class="fa fa-play pr-10" style="color:#bd833d" onclick="this.firstChild.play(); this.style.color = 'green'"><audio><source src="{{audiofiles[key]}}" type="audio/webm"></audio></!--i>&nbsp;-->
+                                {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {{ pagination.links }}
+            </div>
+        </div>
+
+        {% elif remaining_sentences == 69 %}
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        <ul class="pager">
+            {% if rnd > 0 %}
+            <li><a href="{{url_for('sentences', rand=rnd-1)}}">Previous</a></li>
+            {% else %}
+            <li class="disabled"><a href="#">Previous</a></li>
+            {% endif %}
+            {% if rnd < length %}
+            <li><a href="{{url_for('sentences', rand=rnd+1)}}">Next</a></li>
+            {% else %}
             {% if current_user.fullname == '' %}
-            <li><a href="#myModal" data-toggle="modal">Finish</a></li>
+            <li><a href="#finishModal" data-toggle="modal">Finish</a></li>
             {% else %}
             <li><a href="{{url_for('signout')}}">Finish</a></li>
             {% endif %}
+            {% endif %}
+            <div class="right-section">
+                <a style="color:white;">No Media</a>&nbsp;
+                <a href="{{url_for('signout')}}" class="btn btn-primary btn-md">Log out</a>
+            </div>
+        </ul>
+
+        <div class="midsection">
+            <h4 id="starttext" style="color:dodgerblue; display:none">Opnemen is aan de gang...</h4>
+            <h4 id="stoptext" style="color:dodgerblue; display:none">De opname is gestopt</h4>
+            <h4 id="submittext" style="color:dodgerblue; display:none">Bedankt, uw geluidsopname is nu ingediend.</h4>
+            <span class="glyphicon glyphicon-record" style="color:indianred"></span>
+            {% if dialect == "Mestreech" %}
+            <h5 id="langtext" class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Maastricht (Spreek dit uit)</h5>
+            <h2><a href="#" style="color:black" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentencemaas}}</a></h2>
+            {% elif dialect == "Eijsden" %}
+            <h5 id="langtext" class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Eijsdens (Spreek dit uit)</h5>
+            <h2><a href="#" style="color:black" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentenceeijsden}}</a></h2>
+            {% elif dialect == "Schimmerts" %}
+            <h5 id="langtext" class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Sjömmerts (Spreek dit uit)</h5>
+            <h2><a href="#" style="color:black" data-toggle="tooltip" data-placement="top" title="{{sentence.sentenceenglish}}">{{sentence.sentenceschimmerts}}</a></h2>
+            {% endif %}
+            <h5 class="text-center" style="color:coral; font-family:'Californian FB'; font-style:italic">Nederlands</h5>
+            <h3>{{sentence.sentencedutch}}</h3>
+            <div id="container">
+
+                <audio id="gum" autoplay muted></audio>
+                <audio id="recorded" autoplay></audio>
+
+                <div>
+                    <button id="record" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue">Opnemen <span class="glyphicon glyphicon-record" style="color:indianred"></span></button>
+                    <button id="play" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Spelen <span class="glyphicon glyphicon-play" style="color:dodgerblue"></span></button>
+                    <button id="download" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Downloaden <span class="glyphicon glyphicon-download-alt" style="color:cadetblue"></span></button>
+                    <button id="submit" type="button" class="btn btn-default btn-round-md btn-md mybtn-blue" disabled>Opslaan <span class="glyphicon glyphicon-send" style="color:green"></span></button>
+                </div>
+
+            </div>
+
+            <p id="paragraph"></p>
+            <div class="bottom-left">
+                <p>Category: {{sentence.category}}</p>
+            </div>
+        </div>
+
+        {% elif remaining_sentences == 0 %}
+        <ul class="pager">
+            <div class="right-section">
+                {% if recording_count > 0 %}
+                <a href="#output" id="myButton" class="btn btn-primary btn-md">View Media</a>
+                <a href="{{url_for('signout')}}" class="btn btn-primary btn-md">Log out</a>
+                {% else %}
+                <p>No Media</p>
+                {% endif %}
+            </div>
+        </ul>
+        
+        <div class="midsection">
+            <h2>All sentences have been recorded</h2>
+        </div>
+        <div class="container">
+            <div id="output" class="midsection2">
+                <table class="table table-striped table-colored table-hover tablemobile">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for recording in recordings %}
+                        <tr>
+                            <td>{{ loop.index + (mypage - 1) * per_page }}</td>
+                            <td>{{ recording.recordingname }}</td>
+                            <td>
+                                {% for key in audiofiles %}
+                                {% if recording.audiofilepath == key %}
+                                <button class="btn btn-primary btn-md" onclick="this.firstChild.play(); this.style.color = 'green'"><audio><source src="{{audiofiles[key]}}" type="audio/webm"></audio>Play</button>
+                                <!--i class="fa fa-play pr-10" style="color:#bd833d" onclick="this.firstChild.play(); this.style.color = 'green'"><audio><source src="{{audiofiles[key]}}" type="audio/webm"></audio></!--i>&nbsp;-->
+                                {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {{ pagination.links }}
+            </div>
+        </div>
         {% endif %}
-    </ul>
+    </div>
+    
+   
     <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
+    <div id="finishModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
 
             <!-- Modal content-->
@@ -108,6 +313,7 @@
     <!-- include adapter for srcObject shim -->
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="/static/scripts/main.js"></script>
+    <script src="/static/scripts/example.js"></script>
 
     <script src="/static/scripts/modernizr-2.6.2.js"></script>
     <script src="/static/scripts/jquery-1.10.2.js"></script>

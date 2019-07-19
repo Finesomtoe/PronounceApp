@@ -2,7 +2,7 @@
 
 <html lang="nl" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Instruction - mestreechs-eijsden voices</title>
+    <title>Instruction - mestreechs-eijsdens-sjömmerts voices</title>
     <link rel="icon" href="/static/favicon.ico">
     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
@@ -18,23 +18,34 @@
         <header class="intro">
             <div class="loader"></div> 
             <h1>Instructie</h1>
+            <h4>Je hebt nog {{remaining_sentences}} zinnen om uit te spreken</h4>
             <h4 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">             
                 Op de volgende pagina kunt u zinnen opnemen in uw gekozen dialect, deze opnames afspelen, ze downloaden en inleveren voor onderzoeksdoeleinden.<br />
                 Klik op de knop 'Opslaan' wanneer u klaar bent met opnemen
             </h4>
             <br />
             <dl>
-                <dt>Kies Mestreechs (Maastrichts) of Eèsjdes (Eijsdens) en het aantal zinnen</dt>
+                <dt>Kies Mestreechs (Maastrichts), Eèsjdes (Eijsdens) of Sjömmerts (Schimmerts) en het aantal zinnen</dt>
                 <br />
                 <form action="{{url_for('passdata')}}" method="post">
                     <mark>Kies dialect</mark>
                     <label class="radio-inline"><input type="radio" name="dialect" value="Mestreech" required>Mestreechs/Maastrichts</label>
-                    <label class="radio-inline"><input type="radio" name="dialect" value="Eijsden" required>Eèsjdes/Eijsdens</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio-inline"><input type="radio" name="dialect" value="Eijsden" required>Eèsjdes/Eijsdens</label>
+                    <label class="radio-inline"><input type="radio" name="dialect" value="Schimmerts" required>Sjömmert</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <mark>Kies aantal zinnen</mark>
-                    <label class="radio-inline"><input type="radio" name="sentencecount" value="5" required>5</label>
-                    <label class="radio-inline"><input type="radio" name="sentencecount" value="15" required>15</label>
-                    <label class="radio-inline"><input type="radio" name="sentencecount" value="20" required>20</label>
-                    <label class="radio-inline"><input type="radio" name="sentencecount" value="30" required>30</label><br /><br />
+                    {% if remaining_sentences > 5 %}
+                    <label class="radio-inline"><input type="radio" name="sentencecount" value="5" required>5</label>                    
+                    {% endif %}
+                    {% if remaining_sentences > 15 %}
+                    <label class="radio-inline"><input type="radio" name="sentencecount" value="15" required>15</label>                   
+                    {% endif %}
+                    {% if remaining_sentences > 20 %}
+                    <label class="radio-inline"><input type="radio" name="sentencecount" value="20" required>20</label>                    
+                    {% endif %}
+                    {% if remaining_sentences > 30 %}
+                    <label class="radio-inline"><input type="radio" name="sentencecount" value="30" required>30</label>                    
+                    {% endif %}                   
+                    <label class="radio-inline"><input type="radio" name="sentencecount" value="{{remaining_sentences}}" required>{{remaining_sentences}}</label><br /><br />
                     <button type="submit" class="buttoninstruct"><span>Ga verder</span></button>
                 </form> 
             </dl>                                                            

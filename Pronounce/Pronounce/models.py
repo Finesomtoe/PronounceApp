@@ -51,16 +51,18 @@ class Sentence(db.Model):
     sentenceenglish = db.Column(db.String(200), unique=True)
     sentencemaas = db.Column(db.String(200), unique=True)
     sentenceeijsden = db.Column(db.String(200), unique=True)
+    sentenceschimmerts = db.Column(db.String(200), unique=True)
     nrofrecordings = db.Column(db.Integer)
     recordings = db.relationship('Recording', backref='sentence', lazy='dynamic')
     
 
-    def __init__(self, category, sentencedutch, sentenceenglish, sentencemaas, sentenceeijsden, nroforecordings):      
+    def __init__(self, category, sentencedutch, sentenceenglish, sentencemaas, sentenceeijsden, sentenceschimmerts, nroforecordings):      
         self.category = category.lower()
         self.sentencedutch = sentencedutch.title()  
         self.sentenceenglish = sentenceenglish.title()
         self.sentencemaas = sentencemaas.title()
         self.sentenceeijsden = sentenceeijsden.title()
+        self.sentenceschimmerts = sentenceschimmerts.title()
         self.nrofrecordings = nroforecordings      
 
     def __repr__(self):

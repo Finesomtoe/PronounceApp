@@ -220,6 +220,30 @@ form input#submit {
     font-family: 'Segoe UI';
 }
 
+.right-section {
+    float: right;
+    position: relative;
+    font-size: 21px;
+    font-weight: 200;
+    line-height: 2.1428571435;
+    color: inherit;
+    text-align: center;  
+}
+
+#output.midsection2 {
+    position: relative;
+    min-height: 500px;
+    font-size: 14px;
+    font-weight: 200;
+    margin-bottom: 30px;
+    line-height: 2.1428571435;
+    color: inherit;
+    background-color: #ffffff;
+    margin: 0 auto;
+    width: 30em;
+    font-family: Lucida Sans Unicode;
+}
+
 .midsection {
     position:relative;
     padding-top: 70px;
